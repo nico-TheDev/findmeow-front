@@ -6,6 +6,7 @@
     margin: 0;
     padding: 0;
     box-sizing: inherit;
+    transition: 300ms;
 }
 
 body {
@@ -28,4 +29,9 @@ button {
 
 button:hover {
     cursor: pointer;
+}
+
+input {
+    font-family: inherit;
+    font-size: inherit;
 }
