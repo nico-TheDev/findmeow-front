@@ -13,11 +13,11 @@ import AdoptPage from "components/pages/AdoptPage";
 import ProfilePage from "components/pages/ProfilePage";
 
 function App() {
-    const auth = useAuth();
+    const { isLoggedIn } = useAuth();
 
     return (
         <BrowserRouter>
-            {auth && <Nav />}
+            {isLoggedIn && <Nav />}
             <Routes>
                 <Route path="/" element={<LandingPage />} />
                 <Route path="/login" element={<LandingPage />} />
