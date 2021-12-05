@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useFormik, FormikHelpers, FormikValues } from "formik";
 
 import {
     MainContainer,
@@ -20,19 +21,45 @@ import heroImg from "assets/img/landing-img-1.png";
 interface IProps {}
 
 export const LandingPage: React.FC<IProps> = () => {
+    const handleSubmit = (values: FormikValues) => {
+        console.log(values);
+    };
+
+    const formik = useFormik({
+        initialValues: {
+            username: "",
+            password: "",
+        },
+        onSubmit: handleSubmit,
+    });
+
     return (
         <MainContainer>
             <Container>
                 <HeroLeft>
                     <Logo src={logoImg} alt="Findmeow Logo" />
-                    <LoginForm>
+                    <LoginForm onSubmit={formik.handleSubmit}>
                         <h2>Login</h2>
                         <InputField>
-                            <input type="text" placeholder="Username" />
+                            <input
+                                type="text"
+                                placeholder="Username"
+                                id="username"
+                                name="username"
+                                onChange={formik.handleChange}
+                                value={formik.values.username}
+                            />
                             <span>Example:name@email.com</span>
                         </InputField>
                         <InputField>
-                            <input type="password" placeholder="Password" />
+                            <input
+                                type="password"
+                                placeholder="Password"
+                                id="password"
+                                name="password"
+                                onChange={formik.handleChange}
+                                value={formik.values.password}
+                            />
                             <span>Must not be less than 6 characters</span>
                         </InputField>
                         <BottomForm>

@@ -12,7 +12,7 @@ export const Container = styled.div`
     width: 90%;
     min-height: 90vh;
     background-color: white;
-    border-radius: 1rem;
+    border-radius: 2.5rem;
     box-shadow: 10px 13px 42px -2px rgba(0, 0, 0, 0.5);
     -webkit-box-shadow: 10px 13px 42px -2px rgba(0, 0, 0, 0.5);
     -moz-box-shadow: 10px 13px 42px -2px rgba(0, 0, 0, 0.5);
@@ -40,13 +40,13 @@ export const HeroRight = styled.div`
 `;
 
 export const Logo = styled.img`
-    width: 350px;
+    width: 250px;
     display: block;
     margin-bottom: 5rem;
 `;
 
 export const HeroImg = styled.img`
-    width: 400px;
+    width: 350px;
 `;
 
 export const LoginForm = styled.form`
@@ -65,7 +65,8 @@ export const InputField = styled.div`
     input {
         display: block;
         border: 1px solid gray;
-        padding: 1rem 0.5rem;
+        font-size: 0.8rem;
+        padding: 1em 0.75em;
         width: 100%;
         border-radius: 8px;
         color: black;
