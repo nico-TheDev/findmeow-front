@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik, FormikHelpers, FormikValues } from "formik";
 
 import {
@@ -21,8 +21,10 @@ import heroImg from "assets/img/landing-img-1.png";
 interface IProps {}
 
 export const LandingPage: React.FC<IProps> = () => {
+    const navigate = useNavigate();
     const handleSubmit = (values: FormikValues) => {
         console.log(values);
+        navigate("/dashboard/home");
     };
 
     const formik = useFormik({
