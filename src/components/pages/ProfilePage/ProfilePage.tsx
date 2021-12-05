@@ -4,12 +4,12 @@ import PageWrapper from "components/shared/PageWrapper";
 
 interface IProps {}
 
-const FindPage: React.FC<IProps> = () => {
+const ProfilePage: React.FC<IProps> = () => {
     return (
-        <PageWrapper title="Find">
+        <PageWrapper title="Profile">
             <div></div>
         </PageWrapper>
     );
 };
 
-export default FindPage;
+export default ProfilePage;
