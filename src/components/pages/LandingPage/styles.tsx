@@ -91,16 +91,3 @@ export const BottomForm = styled.div`
         color: blue;
     }
 `;
-
-export const Button = styled.button`
-    background-color: ${({ theme }) => theme.primary.main};
-    border-radius: 5rem;
-    padding: 0.8em 2em;
-    color: white;
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    margin-right: 2rem;
-    &:hover {
-        background-color: ${({ theme }) => theme.primary.light};
-    }
-`;

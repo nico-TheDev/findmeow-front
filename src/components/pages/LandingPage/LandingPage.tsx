@@ -2,6 +2,8 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik, FormikHelpers, FormikValues } from "formik";
 
+import { Button } from "components/shared/shared";
+
 import {
     MainContainer,
     Container,
@@ -11,7 +13,6 @@ import {
     HeroImg,
     LoginForm,
     InputField,
-    Button,
     BottomForm,
 } from "./styles";
 
