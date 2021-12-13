@@ -30,10 +30,13 @@ export const CardHead = styled.div`
     }
 `;
 
-export const CardImg = styled.img`
-    height: 200px;
-    width: 100%;
-    object-fit: cover;
+export const CardImg = styled.div`
+    margin: -3px;
+    img {
+        height: 200px;
+        width: 100%;
+        object-fit: cover;
+    }
 `;
 
 export const CardDesc = styled.div`

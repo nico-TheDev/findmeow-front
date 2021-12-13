@@ -19,20 +19,23 @@ interface IProps {
 
 const PetCard: React.FC<IProps> = ({ details }) => {
     return (
-        <CardMain>
-            <Link to="/find/" style={{ textDecoration: "none" }}>
-                <CardHead>
-                    <img src={details.profileImg} alt="User Photo" />
-                    <div>
-                        <h4>{details.name}</h4>
-                        <span>{details.location}</span>
-                    </div>
-                    <span>{details.date}</span>
-                </CardHead>
-                <CardImg src={details.imgSource} alt="" />
-                <CardDesc>{details.description}</CardDesc>
-            </Link>
-        </CardMain>
+        <Link
+            to="/dashboard/find/:id"
+            style={{ textDecoration: "none", display: "block" }}
+        >
+            <CardHead>
+                <img src={details.profileImg} alt="User Photo" />
+                <div>
+                    <h4>{details.name}</h4>
+                    <span>{details.location}</span>
+                </div>
+                <span>{details.date}</span>
+            </CardHead>
+            <CardImg>
+                <img src={details.imgSource} alt="" />
+            </CardImg>
+            <CardDesc>{details.description}</CardDesc>
+        </Link>
     );
 };
 
