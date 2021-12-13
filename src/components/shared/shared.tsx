@@ -4,7 +4,7 @@ export const Container = styled.div`
     background-color: ${({ theme }) => theme.gray};
     min-height: 100vh;
     padding: 2rem;
-    padding-top: 15vh;
+    padding-top: 13vh;
     position: relative;
     h1 {
         width: 90%;

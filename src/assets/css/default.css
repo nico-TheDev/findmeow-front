@@ -10,6 +10,10 @@
     line-height: 1.2;
 }
 
+html {
+    font-size: 14px;
+}
+
 body {
     box-sizing: border-box;
     font-family: "Roboto", sans-serif;
@@ -44,4 +48,37 @@ input {
 ul,
 li {
     list-style: none;
+}
+
+.my-masonry-grid {
+    display: -webkit-box; /* Not needed if autoprefixing */
+    display: -ms-flexbox; /* Not needed if autoprefixing */
+    display: flex;
+    margin-left: -30px; /* gutter size offset */
+    width: auto;
+    height: 70vh;
+    width: 70%;
+    margin: 1.5rem auto 0 auto;
+    overflow-y: scroll;
+    position: relative;
+    padding: 1rem;
+}
+.my-masonry-grid_column {
+    padding-left: 30px; /* gutter size */
+    background-clip: padding-box;
+}
+
+/* Style your items */
+.my-masonry-grid_column > div {
+    background: grey;
+    margin-bottom: 30px;
+    width: 100%;
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 4px 4px 3px 0px rgba(0, 0, 0, 0.25);
+    border: 2px solid transparent;
+}
+
+.my-masonry-grid_column > div:hover {
+    transform: scale(1.05);
 }
