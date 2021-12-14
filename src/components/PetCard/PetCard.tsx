@@ -15,12 +15,13 @@ type PetDetails = {
 
 interface IProps {
     details: PetDetails;
+    type: string;
 }
 
-const PetCard: React.FC<IProps> = ({ details }) => {
+const PetCard: React.FC<IProps> = ({ details, type }) => {
     return (
         <Link
-            to="/dashboard/find/:id"
+            to={`/dashboard/${type}/${details.id}`}
             style={{ textDecoration: "none", display: "block" }}
         >
             <CardHead>

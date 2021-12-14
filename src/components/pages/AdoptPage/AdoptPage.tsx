@@ -9,7 +9,7 @@ interface IProps {}
 const AdoptPage: React.FC<IProps> = () => {
     return (
         <PageWrapper title="Adopt" imgSrc={catBg}>
-            <PetList />
+            <PetList type="adopt" />
         </PageWrapper>
     );
 };

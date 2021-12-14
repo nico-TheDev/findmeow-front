@@ -11,8 +11,7 @@ const PageWrapper: React.FC<IProps> = ({ children, title, imgSrc }) => {
     return (
         <Container>
             {imgSrc && <PageBG src={imgSrc} alt="" />}
-            <h1>{title}</h1>
-            {children}
+            {title && <h1>{title}</h1>} {children}
         </Container>
     );
 };

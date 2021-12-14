@@ -9,7 +9,7 @@ interface IProps {}
 const FindPage: React.FC<IProps> = () => {
     return (
         <PageWrapper title="Find" imgSrc={globeBg}>
-            <PetList />
+            <PetList type="find" />
         </PageWrapper>
     );
 };
