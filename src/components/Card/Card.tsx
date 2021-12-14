@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 import Icon from "components/shared/Icon";
 import {
@@ -25,13 +26,19 @@ const Card: React.FC<IProps> = ({
     title,
     pathName,
 }) => {
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate("/dashboard/post/create");
+    };
+
     return (
         <CardBody>
             <CardImg src={img} alt="" />
             <CardTitle>{title}</CardTitle>
             <CardDesc>{description}</CardDesc>
             <CardLink to={path}>{pathName}</CardLink>
-            <CardButton>
+            <CardButton onClick={handleClick}>
                 <Icon name="add" />
                 Create
             </CardButton>

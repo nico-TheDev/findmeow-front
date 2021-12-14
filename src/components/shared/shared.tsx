@@ -3,11 +3,9 @@ import styled from "styled-components";
 export const Container = styled.div`
     background-color: ${({ theme }) => theme.gray};
     min-height: 100vh;
-    padding: 2rem;
-    padding-top: 13vh;
-    position: relative;
+    padding: 13vh 0 2rem 0;
     h1 {
-        width: 90%;
+        width: 80%;
         margin: 0 auto;
         font-weight: 300;
         letter-spacing: 2px;
@@ -25,4 +23,13 @@ export const Button = styled.button`
     &:hover {
         background-color: ${({ theme }) => theme.primary.light};
     }
+`;
+
+export const PageBG = styled.img`
+    position: absolute;
+    width: 300px;
+    height: 60%;
+    top: 50%;
+    left: 0;
+    transform: translateY(-40%);
 `;

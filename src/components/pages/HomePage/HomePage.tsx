@@ -16,7 +16,7 @@ const HomePage: React.FC<IProps> = () => {
                 <Card
                     img={catImg}
                     description="If you’re taking care of a pet temporarily, you can set up an adoption post. You may also see if others’ pets are available for adoption."
-                    path="/dashboard/find"
+                    path="/dashboard/adopt"
                     pathName="View Newsfeed"
                     title="Adopt"
                 />

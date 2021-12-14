@@ -61,7 +61,7 @@ li {
     margin: 1.5rem auto 0 auto;
     overflow-y: scroll;
     position: relative;
-    padding: 1rem;
+    padding: 2rem;
 }
 .my-masonry-grid_column {
     padding-left: 30px; /* gutter size */
