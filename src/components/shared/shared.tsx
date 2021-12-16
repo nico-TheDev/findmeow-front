@@ -33,3 +33,35 @@ export const PageBG = styled.img`
     left: 0;
     transform: translateY(-40%);
 `;
+
+export const InputField = styled.div`
+    input,
+    textarea {
+        display: block;
+        border: 1px solid gray;
+        font-size: 1rem;
+        padding: 1em 0.75em;
+        width: 100%;
+        border-radius: 8px;
+        color: black;
+        outline: none;
+        border: 1px solid rgba(0, 0, 0, 0.4);
+        font-family: inherit;
+
+        &:hover {
+            border: 1px solid ${({ theme }) => theme.primary.main};
+        }
+    }
+
+    textarea {
+        resize: none;
+        height: 100px;
+    }
+
+    span {
+        font-size: 0.8rem;
+        font-weight: 300;
+        color: gray;
+        margin: 0 0.5rem;
+    }
+`;

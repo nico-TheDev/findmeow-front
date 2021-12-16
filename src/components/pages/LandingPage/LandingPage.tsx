@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik, FormikHelpers, FormikValues } from "formik";
 
-import { Button } from "components/shared/shared";
+import { Button, InputField } from "components/shared/shared";
 
 import {
     MainContainer,
@@ -12,7 +12,6 @@ import {
     Logo,
     HeroImg,
     LoginForm,
-    InputField,
     BottomForm,
 } from "./styles";
 
