@@ -10,13 +10,14 @@ export const PetMain = styled.div`
     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.25);
     display: grid;
     grid-template-columns: 1fr 1fr;
+    align-items: center;
+    justify-items: center;
     gap: 1rem;
     min-height: 70vh;
 `;
 export const PetImg = styled.img`
-    width: 300px;
-    height: 300px;
-    border: 1px solid red;
+    width: 80%;
+    height: 80%;
     display: block;
 `;
 
@@ -25,7 +26,8 @@ export const PetForm = styled.form`
     display: grid;
     gap: 1rem;
     margin-bottom: 2rem;
-    align-content: start;
+    justify-self: start;
+    width: 100%;
 `;
 
 export const PetButton = styled(Button)`
@@ -33,4 +35,14 @@ export const PetButton = styled(Button)`
     font-size: 1rem;
 `;
 
-export const RadioGroup = styled.div``;
+export const RadioGroup = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    label input {
+        margin-right: 10px;
+        font-family: inherit;
+    }
+`;
+
+export const UploadBtn = styled.label``;

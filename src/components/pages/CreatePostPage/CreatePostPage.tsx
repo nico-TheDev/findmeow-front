@@ -3,8 +3,16 @@ import { useFormik, Field, FormikValues } from "formik";
 
 import PageWrapper from "components/shared/PageWrapper";
 import { InputField } from "components/shared/shared";
-import { PetMain, PetButton, PetForm, PetImg } from "./styles";
+import {
+    PetMain,
+    PetButton,
+    PetForm,
+    PetImg,
+    RadioGroup,
+    UploadBtn,
+} from "./styles";
 import PetList from "components/PetList";
+import createBG from "assets/img/create-post-bg.png";
 
 interface IProps {}
 
@@ -19,6 +27,7 @@ const CreatePostPage: React.FC<IProps> = () => {
             petDescription: "",
             location: "",
             type: "",
+            imgFile: "",
         },
         onSubmit: handleSubmit,
     });
@@ -26,7 +35,7 @@ const CreatePostPage: React.FC<IProps> = () => {
     return (
         <PageWrapper title="Create Post">
             <PetMain>
-                <PetImg />
+                <PetImg src={createBG} />
                 <PetForm onSubmit={formik.handleSubmit} id="petDetails">
                     <InputField>
                         <input
@@ -58,8 +67,30 @@ const CreatePostPage: React.FC<IProps> = () => {
                             value={formik.values.location}
                         />
                     </InputField>
+                    <RadioGroup role="group" aria-labelledby="my-radio-group">
+                        <label>
+                            <input
+                                type="radio"
+                                id="missing"
+                                name="type"
+                                value="Missing"
+                                onChange={formik.handleChange}
+                            />
+                            Missing
+                        </label>
+                        <label>
+                            <input
+                                type="radio"
+                                id="adoption"
+                                name="type"
+                                value="Adoption"
+                                onChange={formik.handleChange}
+                            />
+                            Adoption
+                        </label>
+                    </RadioGroup>
                     <InputField>
-                        <input
+                        <textarea
                             placeholder="Input Pet Description"
                             id="petDescription"
                             name="petDescription"
@@ -67,6 +98,14 @@ const CreatePostPage: React.FC<IProps> = () => {
                             value={formik.values.petDescription}
                         />
                     </InputField>
+                    <UploadBtn>
+                        <input
+                            type="file"
+                            id="imgFile"
+                            name="imgFile"
+                            accept="image/png, image/jpeg"
+                        />
+                    </UploadBtn>
                     <PetButton>SUBMIT</PetButton>
                 </PetForm>
             </PetMain>
