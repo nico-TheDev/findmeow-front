@@ -55,7 +55,7 @@ export const InputField = styled.div`
 
     textarea {
         resize: none;
-        height: 100px;
+        height: 70px;
     }
 
     span {

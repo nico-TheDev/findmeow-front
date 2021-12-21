@@ -7,10 +7,14 @@ const AuthContext = createContext<{ isLoggedIn: Boolean } | undefined>(
 );
 
 export const AuthContextProvider = ({ children }: CountProviderProps) => {
-    const [isLoggedIn, setIsLoggedIn] = useState(true);
+    const [authDetails, setAuthDetails] = useState({
+        user: {},
+        token: "",
+    });
     const value = {
-        isLoggedIn,
-        setIsLoggedIn,
+        authDetails,
+        setAuthDetails,
+        isLoggedIn: true,
     };
     return (
         <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

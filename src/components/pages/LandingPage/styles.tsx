@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const MainContainer = styled.header`
     min-height: 100vh;
     width: 100%;
-    background-color: ${({ theme }) => theme.secondary.main};
+    background-color: ${({ theme }) => theme.primary.main};
     display: grid;
     place-items: center;
 `;
@@ -58,25 +58,6 @@ export const LoginForm = styled.form`
         color: ${({ theme }) => theme.primary.dark};
         font-weight: 400;
         text-align: center;
-    }
-`;
-
-export const InputField = styled.div`
-    input {
-        display: block;
-        border: 1px solid gray;
-        font-size: 0.8rem;
-        padding: 1em 0.75em;
-        width: 100%;
-        border-radius: 8px;
-        color: black;
-    }
-
-    span {
-        font-size: 0.8rem;
-        font-weight: 300;
-        color: gray;
-        margin: 0 0.5rem;
     }
 `;
 

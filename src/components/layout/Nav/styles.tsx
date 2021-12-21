@@ -47,9 +47,17 @@ export const NavList = styled.ul`
     display: flex;
     align-items: center;
     gap: 3rem;
+
+    & .userPhoto {
+        &:hover .options {
+            opacity: 1;
+            transform: scaleY(1);
+        }
+    }
 `;
 
 export const NavItem = styled.li`
+    position: relative;
     a {
         font-size: 1.2rem;
         font-weight: 300;
@@ -66,4 +74,23 @@ export const UserImg = styled.img`
     width: 40px;
     height: 40px;
     border-radius: 100%;
+`;
+
+export const AccountOptions = styled.div`
+    position: absolute;
+    top: 100%;
+    right: -50%;
+    background: white;
+    opacity: 0;
+    transform: scaleY(0);
+    transform-origin: top;
+    button {
+        padding: 1rem;
+        width: 100%;
+
+        &:hover {
+            background-color: ${({ theme }) => theme.primary.main};
+            color: white;
+        }
+    }
 `;

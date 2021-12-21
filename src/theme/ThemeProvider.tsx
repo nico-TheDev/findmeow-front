@@ -13,12 +13,12 @@ interface ThemeType {
 
 const theme: ThemeType = {
     primary: {
-        light: "#76FF03",
-        main: "#64DD17",
-        dark: "#8BC34A",
+        light: "#FF80AB",
+        main: "#F06292",
+        dark: "#FF80AB",
     },
     secondary: {
-        main: "#B2FF59",
+        main: "#FCE4EC",
     },
     gray: "#E5E5E5",
     grayText: "rgba(0, 0, 0, 0.6)",
