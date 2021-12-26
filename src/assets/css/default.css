@@ -82,3 +82,15 @@ li {
 .my-masonry-grid_column > a:hover {
     transform: scale(1.05);
 }
+
+.custom-masonry {
+    width: 90%;
+    height: 100%;
+    padding: 0 0 0 15px;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+.custom-column > a:hover {
+    transform: none;
+}

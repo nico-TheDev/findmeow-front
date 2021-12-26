@@ -16,9 +16,12 @@ interface IProps {}
 
 const Nav: React.FC<IProps> = () => {
     const navigate = useNavigate();
-    const { isLoggedIn } = useAuth();
+    const { isLoggedIn, setIsLoggedIn } = useAuth();
 
-    const handleClick = () => {};
+    const handleLogout = () => {
+        setIsLoggedIn(false);
+        navigate("/");
+    };
 
     return (
         <NavContainer>
@@ -51,7 +54,7 @@ const Nav: React.FC<IProps> = () => {
                             >
                                 Profile
                             </button>
-                            <button onClick={handleClick}>Logout</button>
+                            <button onClick={handleLogout}>Logout</button>
                         </AccountOptions>
                     </NavItem>
                 </NavList>

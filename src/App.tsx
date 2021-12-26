@@ -14,6 +14,7 @@ import ProfilePage from "components/pages/ProfilePage";
 import CreatePostPage from "components/pages/CreatePostPage";
 import NotFoundPage from "components/pages/NotFoundPage";
 import PetProfilePage from "components/pages/PetProfilePage";
+import SignupPage from "components/pages/SignupPage";
 
 function App() {
     const { isLoggedIn } = useAuth();
@@ -24,6 +25,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<LandingPage />} />
                 <Route path="/login" element={<LandingPage />} />
+                <Route path="/signup" element={<SignupPage />} />
                 <Route path="/dashboard" element={<PrivateRoute />}>
                     <Route path="home" element={<HomePage />} />
                     <Route path="find" element={<FindPage />} />
