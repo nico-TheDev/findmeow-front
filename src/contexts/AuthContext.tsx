@@ -1,4 +1,12 @@
-import React, { createContext, useState, useContext } from "react";
+import React, {
+    createContext,
+    useState,
+    useContext,
+    useEffect,
+    useReducer,
+} from "react";
+
+import AuthReducer from "reducers/AuthReducer";
 
 type CountProviderProps = { children: React.ReactNode };
 
@@ -20,7 +28,23 @@ const AuthContext = createContext<
     | undefined
 >(undefined);
 
+const initialState = () => {
+    if (localStorage.getItem("token"))
+        return {
+            token: localStorage.getItem("token"),
+            user: JSON.parse(localStorage.getItem("user")),
+            userID: localStorage.getItem("userID"),
+        };
+
+    return {
+        token: null,
+        user: null,
+        userID: null,
+    };
+};
+
 export const AuthContextProvider = ({ children }: CountProviderProps) => {
+    const [authState, authDispatch] = useReducer(AuthReducer, initialState);
     const [authDetails, setAuthDetails] = useState({
         user: {},
         token: "",
@@ -32,6 +56,9 @@ export const AuthContextProvider = ({ children }: CountProviderProps) => {
         isLoggedIn,
         setIsLoggedIn,
     };
+
+    useEffect(() => {}, []);
+
     return (
         <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
     );

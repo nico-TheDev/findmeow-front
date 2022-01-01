@@ -19,7 +19,7 @@ export const Container = styled.div`
     -moz-box-shadow: 10px 13px 42px -2px rgba(0, 0, 0, 0.5);
     display: flex;
     align-items: center;
-    justify-items: center;
+    justify-content: center;
     flex-direction: column;
     padding: 2rem;
     gap: 2rem;
@@ -56,7 +56,7 @@ export const LoginForm = styled.form`
     display: grid;
     gap: 2rem;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 100px 1fr;
+    grid-template-rows: max-content 1fr;
     grid-template-areas:
         "title title"
         "left right";
