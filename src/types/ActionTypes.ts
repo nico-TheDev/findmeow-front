@@ -24,7 +24,7 @@ interface UserType {
 }
 // An interface for our state
 export interface AuthState {
-    token: string | null | undefined;
-    userID: string | null | undefined;
-    user: null | UserType | string | undefined;
+    token?: string | null | undefined;
+    userID?: string | null | undefined;
+    user?: null | UserType | string | undefined;
 }

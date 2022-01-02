@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useFormik, FormikHelpers, FormikValues } from "formik";
 
 import { Button, InputField } from "components/shared/shared";
+import { useAuth } from "contexts/AuthContext";
+import { Actions } from "types/ActionTypes";
 
 import {
     MainContainer,
@@ -14,7 +16,7 @@ import {
     LoginForm,
     BottomForm,
 } from "./styles";
-
+import api from "api";
 import logoImg from "assets/img/findmeow-logo-2.png";
 import heroImg from "assets/img/landing-img-1.png";
 
@@ -22,14 +24,38 @@ interface IProps {}
 
 export const LandingPage: React.FC<IProps> = () => {
     const navigate = useNavigate();
-    const handleSubmit = (values: FormikValues) => {
-        console.log(values);
-        navigate("/dashboard/home");
+    const { authDispatch } = useAuth();
+
+    const handleSubmit = async (values: FormikValues) => {
+        if (values.email === "" || values.password === "") return;
+        try {
+            const response = await api.post("/login", {
+                data: { email: values.email, password: values.password },
+            });
+            const data = response.data;
+            authDispatch({
+                type: Actions.SET_TOKEN,
+                payload: {
+                    ...data,
+                },
+            });
+            authDispatch({
+                type: Actions.SET_USER,
+                payload: {
+                    user: data.user,
+                },
+            });
+            navigate("/dashboard/home");
+            console.log(data);
+        } catch (err) {
+            alert(err);
+            console.log(err);
+        }
     };
 
     const formik = useFormik({
         initialValues: {
-            username: "",
+            email: "",
             password: "",
         },
         onSubmit: handleSubmit,
@@ -45,11 +71,11 @@ export const LandingPage: React.FC<IProps> = () => {
                         <InputField>
                             <input
                                 type="text"
-                                placeholder="Username"
-                                id="username"
-                                name="username"
+                                placeholder="Email"
+                                id="email"
+                                name="email"
                                 onChange={formik.handleChange}
-                                value={formik.values.username}
+                                value={formik.values.email}
                             />
                             <span>Example:name@email.com</span>
                         </InputField>
@@ -65,7 +91,7 @@ export const LandingPage: React.FC<IProps> = () => {
                             <span>Must not be less than 6 characters</span>
                         </InputField>
                         <BottomForm>
-                            <Button>Login</Button>
+                            <Button type="submit">Login</Button>
                             <span>
                                 No account yet ?{" "}
                                 <Link to="/signup">Sign up here</Link>
