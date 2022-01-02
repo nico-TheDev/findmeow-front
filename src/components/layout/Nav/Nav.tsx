@@ -1,5 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+
+import { Actions } from "types/ActionTypes";
 import {
     NavContainer,
     Nav as NavMain,
@@ -16,10 +18,11 @@ interface IProps {}
 
 const Nav: React.FC<IProps> = () => {
     const navigate = useNavigate();
-    const { isLoggedIn, setIsLoggedIn } = useAuth();
+    const { authState, authDispatch } = useAuth();
+    const { user, token } = authState;
 
     const handleLogout = () => {
-        setIsLoggedIn(false);
+        authDispatch({ type: Actions.LOGOUT_USER });
         navigate("/");
     };
 

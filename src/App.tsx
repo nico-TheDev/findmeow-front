@@ -17,11 +17,13 @@ import PetProfilePage from "components/pages/PetProfilePage";
 import SignupPage from "components/pages/SignupPage";
 
 function App() {
-    const { isLoggedIn } = useAuth();
+    const { authState } = useAuth();
+
+    const { token } = authState;
 
     return (
         <BrowserRouter>
-            {isLoggedIn && <Nav />}
+            {token && <Nav />}
             <Routes>
                 <Route path="/" element={<LandingPage />} />
                 <Route path="/login" element={<LandingPage />} />

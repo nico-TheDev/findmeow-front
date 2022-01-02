@@ -8,8 +8,10 @@ interface IProps {
 }
 
 const PrivateRoute: React.FC<IProps> = ({ children }) => {
-    const { isLoggedIn } = useAuth();
-    return isLoggedIn ? <Outlet /> : <Navigate to="/login" />;
+    const {
+        authState: { user },
+    } = useAuth();
+    return user ? <Outlet /> : <Navigate to="/login" />;
 };
 
 export default PrivateRoute;

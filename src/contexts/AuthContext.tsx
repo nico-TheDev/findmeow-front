@@ -1,40 +1,24 @@
-import React, {
-    createContext,
-    useState,
-    useContext,
-    useEffect,
-    useReducer,
-} from "react";
+import React, { createContext, useContext, useEffect, useReducer } from "react";
 
 import AuthReducer from "reducers/AuthReducer";
-
-type CountProviderProps = { children: React.ReactNode };
+import { CountProviderProps, AuthState, AuthDispatch } from "types/ActionTypes";
 
 const AuthContext = createContext<
     | {
-          isLoggedIn: Boolean;
-          setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
-          authDetails: {
-              user: {};
-              token: string;
-          };
-          setAuthDetails: React.Dispatch<
-              React.SetStateAction<{
-                  user: {};
-                  token: string;
-              }>
-          >;
+          authState: AuthState;
+          authDispatch: AuthDispatch;
       }
     | undefined
 >(undefined);
 
 const initialState = () => {
-    if (localStorage.getItem("token"))
+    if (localStorage.getItem("token")) {
         return {
             token: localStorage.getItem("token"),
-            user: JSON.parse(localStorage.getItem("user")),
+            user: JSON.parse(localStorage.getItem("user") || "{}"),
             userID: localStorage.getItem("userID"),
         };
+    }
 
     return {
         token: null,
@@ -44,17 +28,11 @@ const initialState = () => {
 };
 
 export const AuthContextProvider = ({ children }: CountProviderProps) => {
-    const [authState, authDispatch] = useReducer(AuthReducer, initialState);
-    const [authDetails, setAuthDetails] = useState({
-        user: {},
-        token: "",
-    });
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [authState, authDispatch] = useReducer(AuthReducer, {}, initialState);
+
     const value = {
-        authDetails,
-        setAuthDetails,
-        isLoggedIn,
-        setIsLoggedIn,
+        authState,
+        authDispatch,
     };
 
     useEffect(() => {}, []);
