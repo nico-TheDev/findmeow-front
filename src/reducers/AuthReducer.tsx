@@ -27,6 +27,7 @@ const AuthReducer: Reducer<AuthState, AuthAction> = (state, action) => {
         case Actions.LOGIN_USER:
             return state;
         case Actions.LOGOUT_USER:
+            localStorage.clear();
             return {
                 token: null,
                 user: null,
