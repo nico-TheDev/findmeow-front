@@ -1,9 +1,12 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useFormik, FormikHelpers, FormikValues } from "formik";
+// @ts-nocheck
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useFormik, FormikValues } from "formik";
 
+import { Actions } from "types/ActionTypes";
+import { useAuth } from "contexts/AuthContext";
 import { InputField } from "components/shared/shared";
-
+import api from "api";
 import {
     MainContainer,
     Container,
@@ -14,16 +17,46 @@ import {
     Upload,
 } from "./styles";
 
-import logoImg from "assets/img/findmeow-logo-2.png";
-import heroImg from "assets/img/landing-img-1.png";
-
 interface IProps {}
 
 export const SignupPage: React.FC<IProps> = () => {
     const navigate = useNavigate();
-    const handleSubmit = (values: FormikValues) => {
-        console.log(values);
-        navigate("/dashboard/home");
+    const { authDispatch } = useAuth();
+    const [profileImg, setProfileImg] = useState("");
+
+    const handleSubmit = async (values: FormikValues) => {
+        try {
+            const formData = new FormData();
+
+            formData.append("email", values.email);
+            formData.append("password", values.password);
+            formData.append("name", values.name);
+            formData.append("username", values.username);
+            formData.append("location", values.location);
+            formData.append("contact", values.contact);
+            formData.append("profileImg", profileImg);
+
+            const response = await api.post("/signup", formData);
+            authDispatch({ type: Actions.SET_USER, payload: response.data });
+            authDispatch({
+                type: Actions.SET_TOKEN,
+                payload: {
+                    token: response.data.token,
+                    userID: response.data.userID,
+                },
+            });
+            console.log(response);
+
+            navigate("/dashboard/home");
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const target = e.target;
+        setProfileImg(target.files[0]);
+        console.log(target.files[0]);
     };
 
     const formik = useFormik({
@@ -34,7 +67,7 @@ export const SignupPage: React.FC<IProps> = () => {
             username: "",
             location: "",
             contact: "",
-            photo: "",
+            profileImg: "",
         },
         onSubmit: handleSubmit,
     });
@@ -42,7 +75,10 @@ export const SignupPage: React.FC<IProps> = () => {
     return (
         <MainContainer>
             <Container>
-                <LoginForm onSubmit={formik.handleSubmit}>
+                <LoginForm
+                    onSubmit={formik.handleSubmit}
+                    encType="multipart/form-data"
+                >
                     <h2>Sign Up</h2>
                     <Left>
                         <InputField>
@@ -117,10 +153,10 @@ export const SignupPage: React.FC<IProps> = () => {
                         <Upload>
                             <input
                                 type="file"
-                                id="photo"
-                                name="photo"
-                                onChange={formik.handleChange}
-                                value={formik.values.photo}
+                                id="profileImg"
+                                name="profileImg"
+                                onChange={handleFileChange}
+                                accept=".png,.jpeg,.jpg"
                             />
                         </Upload>
                         <Btn>Submit</Btn>
