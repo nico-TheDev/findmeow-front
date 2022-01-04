@@ -26,5 +26,5 @@ interface UserType {
 export interface AuthState {
     token?: string | null | undefined;
     userID?: string | null | undefined;
-    user?: null | UserType | string | undefined;
+    user?: null | UserType | undefined;
 }

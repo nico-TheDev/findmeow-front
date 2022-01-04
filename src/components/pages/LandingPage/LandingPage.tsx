@@ -36,7 +36,8 @@ export const LandingPage: React.FC<IProps> = () => {
             authDispatch({
                 type: Actions.SET_TOKEN,
                 payload: {
-                    ...data,
+                    token: data.token,
+                    userID: data.userID,
                 },
             });
             authDispatch({

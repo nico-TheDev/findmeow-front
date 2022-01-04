@@ -13,6 +13,7 @@ import {
 } from "./styles";
 import { useAuth } from "contexts/AuthContext";
 import navLogo from "assets/img/findmeow-logo.png";
+import avatarPlaceholder from "assets/img/avatar-icon.png";
 
 interface IProps {}
 
@@ -20,6 +21,10 @@ const Nav: React.FC<IProps> = () => {
     const navigate = useNavigate();
     const { authState, authDispatch } = useAuth();
     const { user, token } = authState;
+
+    const imgPath = user?.profileImg;
+    const avatarSrc = `${process.env.REACT_APP_SERVER_HOST}${process.env.REACT_APP_IMG_PATH}${imgPath}`;
+    console.log(avatarSrc);
 
     const handleLogout = () => {
         authDispatch({ type: Actions.LOGOUT_USER });
@@ -47,7 +52,7 @@ const Nav: React.FC<IProps> = () => {
                     <NavItem className="userPhoto">
                         <Link to="/dashboard/profile">
                             <UserImg
-                                src="https://randomuser.me/api/portraits/men/89.jpg"
+                                src={token ? avatarSrc : avatarPlaceholder}
                                 alt=""
                             />
                         </Link>
