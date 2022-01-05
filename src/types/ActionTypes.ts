@@ -38,3 +38,13 @@ export enum ROUTES {
     PROFILE = "/dashboard/profile",
     CREATE_POST = "/dashboard/post/create",
 }
+
+export interface PetDetails {
+    _id: string | number;
+    profileImg: string;
+    image: string;
+    name: string;
+    location: string;
+    date: string;
+    description: string;
+}

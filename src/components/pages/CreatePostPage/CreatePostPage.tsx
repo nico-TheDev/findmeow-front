@@ -23,7 +23,7 @@ const CreatePostPage: React.FC<IProps> = () => {
     const [postImg, setPostImg] = useState("");
     const { authState } = useAuth();
     const { userID } = authState;
-    const handleSubmit = async (values: FormikValues) => {
+    const handleSubmit = async (values: FormikValues, { resetForm }) => {
         const postData = new FormData();
         try {
             postData.append("name", values.petname);
@@ -38,6 +38,8 @@ const CreatePostPage: React.FC<IProps> = () => {
             const response = await api.post("/post/create", postData);
 
             console.log(response);
+            resetForm();
+            setPostImg("");
         } catch (err) {
             console.log(err);
         }
@@ -99,7 +101,7 @@ const CreatePostPage: React.FC<IProps> = () => {
                                 type="radio"
                                 id="missing"
                                 name="type"
-                                value="Missing"
+                                value="missing"
                                 onChange={formik.handleChange}
                             />
                             Missing
@@ -109,7 +111,7 @@ const CreatePostPage: React.FC<IProps> = () => {
                                 type="radio"
                                 id="adoption"
                                 name="type"
-                                value="Adoption"
+                                value="adoption"
                                 onChange={formik.handleChange}
                             />
                             Adoption
