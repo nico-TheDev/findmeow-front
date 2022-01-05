@@ -1,17 +1,9 @@
+import { useAuth } from "contexts/AuthContext";
 import React from "react";
 import { Link } from "react-router-dom";
 
 import { CardMain, CardHead, CardImg, CardDesc } from "./styles";
-
-type PetDetails = {
-    id: string | number;
-    profileImg: string;
-    imgSource: string;
-    name: string;
-    location: string;
-    date: string;
-    description: string;
-};
+import { PetDetails } from "types/ActionTypes";
 
 interface IProps {
     details: PetDetails;
@@ -19,13 +11,20 @@ interface IProps {
 }
 
 const PetCard: React.FC<IProps> = ({ details, type }) => {
+    const { authState } = useAuth();
+    const { user } = authState;
+    const imgSrc = `${process.env.REACT_APP_SERVER_HOST}${process.env.REACT_APP_IMG_PATH}`;
+
     return (
         <Link
-            to={`/dashboard/${type}/${details.id}`}
+            to={`/dashboard/${type}/${details._id}`}
             style={{ textDecoration: "none", display: "block" }}
         >
             <CardHead>
-                <img src={details.profileImg} alt="User Photo" />
+                <img
+                    src={imgSrc + user?.profileImg}
+                    alt={`${details.name} photo`}
+                />
                 <div>
                     <h4>{details.name}</h4>
                     <span>{details.location}</span>
@@ -33,7 +32,7 @@ const PetCard: React.FC<IProps> = ({ details, type }) => {
                 <span>{details.date}</span>
             </CardHead>
             <CardImg>
-                <img src={details.imgSource} alt="" />
+                <img src={imgSrc + details.image} alt="" />
             </CardImg>
             <CardDesc>{details.description}</CardDesc>
         </Link>
