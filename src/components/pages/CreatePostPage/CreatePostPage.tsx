@@ -1,5 +1,6 @@
-import React from "react";
-import { useFormik, Field, FormikValues } from "formik";
+// @ts-nocheck
+import React, { useState } from "react";
+import { useFormik, FormikValues } from "formik";
 
 import PageWrapper from "components/shared/PageWrapper";
 import { InputField } from "components/shared/shared";
@@ -11,15 +12,41 @@ import {
     RadioGroup,
     UploadBtn,
 } from "./styles";
+import api from "api";
 import PetList from "components/PetList";
 import createBG from "assets/img/create-post-bg.png";
+import { useAuth } from "contexts/AuthContext";
 
 interface IProps {}
 
 const CreatePostPage: React.FC<IProps> = () => {
-    const handleSubmit = (values: FormikValues) => {
-        console.log(values);
+    const [postImg, setPostImg] = useState("");
+    const { authState } = useAuth();
+    const { userID } = authState;
+    const handleSubmit = async (values: FormikValues) => {
+        const postData = new FormData();
+        try {
+            postData.append("name", values.petname);
+            postData.append("breed", values.breed);
+            postData.append("description", values.petDescription);
+            postData.append("location", values.location);
+            postData.append("type", values.type);
+            postData.append("imgFile", postImg);
+            postData.append("userId", userID);
+            console.log(values, postImg);
+
+            const response = await api.post("/post/create", postData);
+
+            console.log(response);
+        } catch (err) {
+            console.log(err);
+        }
     };
+
+    const handleFileChange = (e) => {
+        setPostImg(e.target.files[0]);
+    };
+
     const formik = useFormik({
         initialValues: {
             petname: "",
@@ -27,7 +54,6 @@ const CreatePostPage: React.FC<IProps> = () => {
             petDescription: "",
             location: "",
             type: "",
-            imgFile: "",
         },
         onSubmit: handleSubmit,
     });
@@ -103,7 +129,8 @@ const CreatePostPage: React.FC<IProps> = () => {
                             type="file"
                             id="imgFile"
                             name="imgFile"
-                            accept="image/png, image/jpeg"
+                            accept=".png,.jpeg,.jpg"
+                            onChange={handleFileChange}
                         />
                     </UploadBtn>
                     <PetButton>SUBMIT</PetButton>
