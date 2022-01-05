@@ -76,7 +76,8 @@ export const UserImg = styled.img`
     border-radius: 100%;
 `;
 
-export const AccountOptions = styled.div`
+export const AccountOptions = styled.div<{ token: string | null | undefined }>`
+    display: ${({ token }) => (token ? "block" : "none")};
     position: absolute;
     top: 100%;
     right: -50%;

@@ -31,6 +31,10 @@ const Nav: React.FC<IProps> = () => {
         navigate("/");
     };
 
+    const handleProfile = () => {
+        navigate("/dashboard/profile");
+    };
+
     return (
         <NavContainer>
             <NavMain>
@@ -56,12 +60,8 @@ const Nav: React.FC<IProps> = () => {
                                 alt=""
                             />
                         </Link>
-                        <AccountOptions className="options">
-                            <button
-                                onClick={() => navigate("/dashboard/profile")}
-                            >
-                                Profile
-                            </button>
+                        <AccountOptions className="options" token={token}>
+                            <button onClick={handleProfile}>Profile</button>
                             <button onClick={handleLogout}>Logout</button>
                         </AccountOptions>
                     </NavItem>

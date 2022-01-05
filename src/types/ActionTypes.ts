@@ -28,3 +28,13 @@ export interface AuthState {
     userID?: string | null | undefined;
     user?: null | UserType | undefined;
 }
+
+export enum ROUTES {
+    LANDING = "/",
+    LOGIN = "/login",
+    SIGNUP = "/signup",
+    HOME = "/dashboard/home",
+    FIND = "/dashboard/find",
+    PROFILE = "/dashboard/profile",
+    CREATE_POST = "/dashboard/post/create",
+}
