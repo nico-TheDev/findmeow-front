@@ -45,6 +45,7 @@ export interface PetDetails {
     image: string;
     name: string;
     location: string;
-    date: string;
+    createdAt: string;
     description: string;
+    userId: string;
 }
