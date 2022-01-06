@@ -14,7 +14,7 @@ const ProfilePage: React.FC<IProps> = () => {
     const { authState } = useAuth();
     const [postCollection, setPostCollection] = useState([]);
     const { user, userID } = authState;
-    const profileImgSrc = `${process.env.REACT_APP_SERVER_HOST}${process.env.REACT_APP_IMG_PATH}${user?.profileImg}`;
+    const profileImgSrc = `${process.env.REACT_APP_IMG_PATH}${user?.profileImg}`;
 
     useEffect(() => {
         const getPostCollection = async () => {

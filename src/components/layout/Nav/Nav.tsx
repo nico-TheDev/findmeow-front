@@ -23,7 +23,7 @@ const Nav: React.FC<IProps> = () => {
     const { user, token } = authState;
 
     const imgPath = user?.profileImg;
-    const avatarSrc = `${process.env.REACT_APP_SERVER_HOST}${process.env.REACT_APP_IMG_PATH}${imgPath}`;
+    const avatarSrc = `${process.env.REACT_APP_IMG_PATH}${imgPath}`;
     console.log(avatarSrc);
 
     const handleLogout = () => {

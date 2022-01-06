@@ -1,5 +1,5 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useFormik, FormikHelpers, FormikValues } from "formik";
 
 import { Button, InputField } from "components/shared/shared";
@@ -24,7 +24,11 @@ interface IProps {}
 
 export const LandingPage: React.FC<IProps> = () => {
     const navigate = useNavigate();
-    const { authDispatch } = useAuth();
+    const location = useLocation();
+    const {
+        authState: { token },
+        authDispatch,
+    } = useAuth();
 
     const handleSubmit = async (values: FormikValues) => {
         if (values.email === "" || values.password === "") return;
@@ -61,6 +65,10 @@ export const LandingPage: React.FC<IProps> = () => {
         },
         onSubmit: handleSubmit,
     });
+
+    useEffect(() => {
+        if (token) navigate("/dashboard/home");
+    }, [location.pathname]);
 
     return (
         <MainContainer>
