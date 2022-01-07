@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { ThemeProvider } from "styled-components";
+import { SWRConfig } from "swr";
 
 import { AuthContextProvider } from "contexts/AuthContext";
 
@@ -10,11 +11,17 @@ import App from "./App";
 
 ReactDOM.render(
     <React.StrictMode>
-        <ThemeProvider theme={theme}>
-            <AuthContextProvider>
-                <App />
-            </AuthContextProvider>
-        </ThemeProvider>
+        <SWRConfig
+            value={{
+                shouldRetryOnError: true,
+            }}
+        >
+            <ThemeProvider theme={theme}>
+                <AuthContextProvider>
+                    <App />
+                </AuthContextProvider>
+            </ThemeProvider>
+        </SWRConfig>
     </React.StrictMode>,
     document.getElementById("root")
 );
