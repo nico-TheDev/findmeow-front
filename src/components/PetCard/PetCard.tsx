@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "contexts/AuthContext";
 import { PetDetails } from "types/ActionTypes";
 import { CardMain, CardHead, CardImg, CardDesc } from "./styles";
+import formatDate from "util/formatDate";
 import api from "api";
 
 interface IProps {
@@ -31,11 +32,6 @@ const PetCard: React.FC<IProps> = ({ details, type }) => {
 
         getPostOwner();
     }, []);
-
-    const formatDate = (date: string) => {
-        const [year, month, day] = date.slice(0, 10).split("-");
-        return `${month}/${day}/${year}`;
-    };
 
     return (
         <Link

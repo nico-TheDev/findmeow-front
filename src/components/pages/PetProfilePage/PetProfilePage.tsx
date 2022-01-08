@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+import api from "api";
 import PageWrapper from "components/shared/PageWrapper";
 import {
     PetMain,
@@ -10,47 +11,65 @@ import {
     PetRight,
     PetBtn,
 } from "./styles";
+import { PetDetails } from "types/ActionTypes";
+import formatDate from "util/formatDate";
 
-interface IProps {}
+interface IProps {
+    type?: string;
+}
 
 const PetProfilePage: React.FC<IProps> = () => {
     const { id } = useParams();
-    const [petDetails, setPetDetails] = useState();
+    const [petDetails, setPetDetails] = useState<PetDetails | null | undefined>(
+        null
+    );
+    const [postOwnerSrc, setPostOwnerSrc] = useState<
+        { name: string; src: string } | null | undefined
+    >(null);
+    const [postImgSrc, setPostImgSrc] = useState("");
 
     useEffect(() => {
-        // FIND PET IN DB
-        // ASSIGN PET TO DETAILS
-        // DISPLAY IT
+        const getPetDetails = async () => {
+            const postResponse = await api.get(`/post/${id}`);
+            console.log(postResponse.data);
+            setPetDetails(postResponse.data);
+            setPostImgSrc(
+                `${process.env.REACT_APP_IMG_PATH}${postResponse.data?.image}`
+            );
+
+            const postOwnerResponse = await api.get(
+                `/user/${postResponse.data?.userId}`
+            );
+            const postOwner = postOwnerResponse.data.user;
+            console.log(postOwnerResponse.data);
+            setPostOwnerSrc({
+                src: `${process.env.REACT_APP_IMG_PATH}${postOwner?.profileImg}`,
+                name: postOwner.name,
+            });
+        };
+        getPetDetails();
     }, [id]);
 
     return (
         <PageWrapper title="Pet Profile">
             <PetMain>
                 <PetLeft>
-                    <img
-                        src="https://images.unsplash.com/photo-1541364983171-a8ba01e95cfc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8cGV0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-                        alt=""
-                    />
+                    <img src={postImgSrc} alt="" />
                     <PetBottom>
-                        <img
-                            src="https://randomuser.me/api/portraits/men/54.jpg"
-                            alt=""
-                        />
-                        <h4>Owner Name</h4>
+                        <img src={postOwnerSrc?.src} alt="" />
+                        <h4>{postOwnerSrc?.name}</h4>
                     </PetBottom>
                 </PetLeft>
                 <PetRight>
-                    <h4>Bruno</h4>
+                    <h4>{petDetails?.name}</h4>
                     <PetLocation>
-                        <h6>Manila</h6>
-                        <h6>12/11/2021</h6>
+                        <h6>{petDetails?.location}</h6>
+                        <h6>
+                            {petDetails && formatDate(petDetails?.createdAt)}
+                        </h6>
                     </PetLocation>
 
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Corporis quidem ullam quo sapiente facilis atque amet ab
-                        impedit id quae.
-                    </p>
+                    <p>{petDetails?.description}</p>
 
                     <PetBtn>Contact Owner</PetBtn>
                 </PetRight>
