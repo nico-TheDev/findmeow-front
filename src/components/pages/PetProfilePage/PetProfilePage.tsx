@@ -28,6 +28,10 @@ const PetProfilePage: React.FC<IProps> = () => {
     >(null);
     const [postImgSrc, setPostImgSrc] = useState("");
 
+    const handleContact = () => {
+        console.log("go to owner");
+    };
+
     useEffect(() => {
         const getPetDetails = async () => {
             const postResponse = await api.get(`/post/${id}`);
@@ -71,7 +75,7 @@ const PetProfilePage: React.FC<IProps> = () => {
 
                     <p>{petDetails?.description}</p>
 
-                    <PetBtn>Contact Owner</PetBtn>
+                    <PetBtn onClick={handleContact}>Contact Owner</PetBtn>
                 </PetRight>
             </PetMain>
         </PageWrapper>
