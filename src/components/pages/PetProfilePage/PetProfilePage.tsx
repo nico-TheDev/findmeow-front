@@ -10,6 +10,7 @@ import {
     PetLocation,
     PetRight,
     PetBtn,
+    PetDescription,
 } from "./styles";
 import { PetDetails } from "types/ActionTypes";
 import formatDate from "util/formatDate";
@@ -73,7 +74,7 @@ const PetProfilePage: React.FC<IProps> = () => {
                         </h6>
                     </PetLocation>
 
-                    <p>{petDetails?.description}</p>
+                    <PetDescription>{petDetails?.description}</PetDescription>
 
                     <PetBtn onClick={handleContact}>Contact Owner</PetBtn>
                 </PetRight>

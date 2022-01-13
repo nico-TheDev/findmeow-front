@@ -68,3 +68,8 @@ export const PetBtn = styled(Button)`
     width: max-content;
     font-size: 1.2rem;
 `;
+
+export const PetDescription = styled.p`
+    max-height: 200px;
+    overflow-y: scroll;
+`;

@@ -6,6 +6,7 @@ import { PetDetails } from "types/ActionTypes";
 import { CardMain, CardHead, CardImg, CardDesc } from "./styles";
 import formatDate from "util/formatDate";
 import api from "api";
+import truncateString from "util/formatDesc";
 
 interface IProps {
     details: PetDetails;
@@ -49,7 +50,7 @@ const PetCard: React.FC<IProps> = ({ details, type }) => {
             <CardImg>
                 <img src={postImgSrc} alt="Post Photo" />
             </CardImg>
-            <CardDesc>{details.description}</CardDesc>
+            <CardDesc>{truncateString(details.description, 100)}</CardDesc>
         </Link>
     );
 };
