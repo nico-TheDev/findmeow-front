@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import styled from "styled-components";
 
 export const MainContainer = styled.header`
@@ -71,4 +73,9 @@ export const BottomForm = styled.div`
     a {
         color: blue;
     }
+`;
+
+export const ErrorMessages = styled.span`
+    color: ${({ hasError }) => (hasError ? "red" : "black")} !important;
+    font-weight: ${({ hasError }) => (hasError ? "bold" : "normal")} !important;
 `;
