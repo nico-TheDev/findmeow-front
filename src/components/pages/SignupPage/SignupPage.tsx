@@ -15,7 +15,9 @@ import {
     Right,
     Btn,
     Upload,
+    BackBtn,
 } from "./styles";
+import Icon from "components/shared/Icon";
 
 interface IProps {}
 
@@ -72,9 +74,16 @@ export const SignupPage: React.FC<IProps> = () => {
         onSubmit: handleSubmit,
     });
 
+    const handleBack = () => {
+        navigate("/");
+    };
+
     return (
         <MainContainer>
             <Container>
+                <BackBtn onClick={handleBack}>
+                    <Icon name="close" />
+                </BackBtn>
                 <LoginForm
                     onSubmit={formik.handleSubmit}
                     encType="multipart/form-data"

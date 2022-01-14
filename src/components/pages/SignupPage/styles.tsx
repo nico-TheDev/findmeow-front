@@ -23,6 +23,7 @@ export const Container = styled.div`
     flex-direction: column;
     padding: 2rem;
     gap: 2rem;
+    position: relative;
 `;
 
 export const HeroLeft = styled.div`
@@ -98,4 +99,27 @@ export const Right = styled.div`
 export const Upload = styled.label`
     margin: 1rem 0;
     display: block;
+`;
+
+export const BackBtn = styled.button`
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: ${({ theme }) => theme.primary.dark};
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+
+    &:hover {
+        background: ${({ theme }) => theme.primary.main};
+    }
+
+    svg {
+        fill: white;
+        width: 2rem;
+        height: 2rem;
+    }
 `;
