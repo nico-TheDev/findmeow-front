@@ -5,7 +5,7 @@ import { useFormik, FormikValues } from "formik";
 
 import { Actions } from "types/ActionTypes";
 import { useAuth } from "contexts/AuthContext";
-import { InputField } from "components/shared/shared";
+import { InputField, ErrorMessages } from "components/shared/shared";
 import api from "api";
 import {
     MainContainer,
@@ -18,8 +18,19 @@ import {
     BackBtn,
 } from "./styles";
 import Icon from "components/shared/Icon";
+import validateEmail from "util/validateEmail";
 
 interface IProps {}
+
+interface ErrorType {
+    email: string;
+    password: string;
+    name: string;
+    username: string;
+    location: string;
+    contact: string;
+    profileImg: string;
+}
 
 export const SignupPage: React.FC<IProps> = () => {
     const navigate = useNavigate();
@@ -47,8 +58,6 @@ export const SignupPage: React.FC<IProps> = () => {
                     userID: response.data.userID,
                 },
             });
-            console.log(response);
-
             navigate("/dashboard/home");
         } catch (err) {
             console.log(err);
@@ -59,6 +68,45 @@ export const SignupPage: React.FC<IProps> = () => {
         const target = e.target;
         setProfileImg(target.files[0]);
         console.log(target.files[0]);
+    };
+
+    const signupValidator = (values: FormikValues) => {
+        let errors: ErrorType = {
+            email: "",
+            password: "",
+            name: "",
+            username: "",
+            location: "",
+            contact: "",
+        };
+
+        if (!validateEmail(values.email)) {
+            errors.email = "Invalid email";
+        }
+
+        if (values.email.length === 0) {
+            errors.email = "Email is required";
+        }
+        if (values.password.length === 0) {
+            errors.password = "Password is required";
+        }
+        if (values.name.length === 0) {
+            errors.name = "Name is required";
+        }
+        if (values.username.length === 0) {
+            errors.username = "Username is required";
+        }
+        if (values.location.length === 0) {
+            errors.location = "Location is required";
+        }
+        if (values.contact.length === 0) {
+            errors.contact = "Contact information is required";
+        }
+        if (values.password.length < 6) {
+            errors.password = "Minimum password length is 6 characters";
+        }
+
+        return errors;
     };
 
     const formik = useFormik({
@@ -99,7 +147,10 @@ export const SignupPage: React.FC<IProps> = () => {
                                 onChange={formik.handleChange}
                                 value={formik.values.email}
                             />
-                            <span>Example:name@email.com</span>
+                            <ErrorMessages hasError={formik.errors.email}>
+                                {formik.errors.email ||
+                                    "Example:juandelacruz@gmail.com"}
+                            </ErrorMessages>{" "}
                         </InputField>
                         <InputField>
                             <input
@@ -110,7 +161,10 @@ export const SignupPage: React.FC<IProps> = () => {
                                 onChange={formik.handleChange}
                                 value={formik.values.username}
                             />
-                            <span>Example:jndlcrz2022</span>
+                            <ErrorMessages hasError={formik.errors.username}>
+                                {formik.errors.username ||
+                                    "Example:jndlcrz2022"}
+                            </ErrorMessages>
                         </InputField>
                         <InputField>
                             <input
@@ -121,7 +175,10 @@ export const SignupPage: React.FC<IProps> = () => {
                                 onChange={formik.handleChange}
                                 value={formik.values.name}
                             />
-                            <span>Example:Juan Dela Cruz</span>
+                            <ErrorMessages hasError={formik.errors.name}>
+                                {formik.errors.name ||
+                                    "Example: Juan Dela Cruz"}
+                            </ErrorMessages>{" "}
                         </InputField>
                         <InputField>
                             <input
@@ -132,7 +189,10 @@ export const SignupPage: React.FC<IProps> = () => {
                                 onChange={formik.handleChange}
                                 value={formik.values.location}
                             />
-                            <span>Example:Manila</span>
+                            <ErrorMessages hasError={formik.errors.location}>
+                                {formik.errors.location ||
+                                    "Example: Metro Manila"}
+                            </ErrorMessages>{" "}
                         </InputField>
                     </Left>
 
@@ -146,7 +206,10 @@ export const SignupPage: React.FC<IProps> = () => {
                                 onChange={formik.handleChange}
                                 value={formik.values.contact}
                             />
-                            <span>Example:name@email.com</span>
+                            <ErrorMessages hasError={formik.errors.contact}>
+                                {formik.errors.contact ||
+                                    "Example: 09123451212"}
+                            </ErrorMessages>{" "}
                         </InputField>
                         <InputField>
                             <input
@@ -157,7 +220,10 @@ export const SignupPage: React.FC<IProps> = () => {
                                 onChange={formik.handleChange}
                                 value={formik.values.password}
                             />
-                            <span>Must not be less than 6 characters</span>
+                            <ErrorMessages hasError={formik.errors.password}>
+                                {formik.errors.password ||
+                                    "Minimum of 6 characters"}
+                            </ErrorMessages>{" "}
                         </InputField>
                         <Upload>
                             <input
@@ -168,7 +234,7 @@ export const SignupPage: React.FC<IProps> = () => {
                                 accept=".png,.jpeg,.jpg"
                             />
                         </Upload>
-                        <Btn>Submit</Btn>
+                        <Btn type="submit">Submit</Btn>
                     </Right>
                 </LoginForm>
             </Container>

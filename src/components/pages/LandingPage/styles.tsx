@@ -74,8 +74,3 @@ export const BottomForm = styled.div`
         color: blue;
     }
 `;
-
-export const ErrorMessages = styled.span`
-    color: ${({ hasError }) => (hasError ? "red" : "black")} !important;
-    font-weight: ${({ hasError }) => (hasError ? "bold" : "normal")} !important;
-`;

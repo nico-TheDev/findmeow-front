@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import styled from "styled-components";
 
 export const Container = styled.div`
@@ -64,4 +66,9 @@ export const InputField = styled.div`
         color: gray;
         margin: 0 0.5rem;
     }
+`;
+
+export const ErrorMessages = styled.span`
+    color: ${({ hasError }) => (hasError ? "red" : "black")} !important;
+    font-weight: ${({ hasError }) => (hasError ? "bold" : "normal")} !important;
 `;

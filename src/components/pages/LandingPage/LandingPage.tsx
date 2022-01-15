@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useFormik, FormikHelpers, FormikValues } from "formik";
 
-import { Button, InputField } from "components/shared/shared";
+import { Button, InputField, ErrorMessages } from "components/shared/shared";
 import { useAuth } from "contexts/AuthContext";
 import { Actions } from "types/ActionTypes";
 
@@ -16,7 +16,6 @@ import {
     HeroImg,
     LoginForm,
     BottomForm,
-    ErrorMessages,
 } from "./styles";
 import api from "api";
 import logoImg from "assets/img/findmeow-logo-2.png";
@@ -58,7 +57,6 @@ export const LandingPage: React.FC<IProps> = () => {
     };
 
     const handleSubmit = async (values: FormikValues) => {
-        if (values.email === "" || values.password === "") return;
         try {
             const response = await api.post("/login", {
                 data: { email: values.email, password: values.password },
@@ -91,7 +89,6 @@ export const LandingPage: React.FC<IProps> = () => {
             password: "",
         },
         onSubmit: handleSubmit,
-        validate: LoginValidator,
     });
 
     useEffect(() => {
