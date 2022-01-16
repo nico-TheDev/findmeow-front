@@ -6,6 +6,7 @@ export const Container = styled.div`
     background-color: ${({ theme }) => theme.gray};
     min-height: 100vh;
     padding: 13vh 0 2rem 0;
+    position: relative;
     h1 {
         width: 80%;
         margin: 0 auto;
@@ -71,4 +72,26 @@ export const InputField = styled.div`
 export const ErrorMessages = styled.span`
     color: ${({ hasError }) => (hasError ? "red" : "green")} !important;
     font-weight: ${({ hasError }) => (hasError ? "bold" : "normal")} !important;
+`;
+
+export const CreateBtn = styled(Button)`
+    position: absolute;
+    bottom: 10%;
+    right: 20px;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+
+    span {
+        font-weight: bold;
+        font-size: 1rem;
+        margin-left: 10px;
+        line-height: 1;
+    }
+
+    svg {
+        fill: white;
+        width: 2rem;
+        height: 2rem;
+    }
 `;
