@@ -1,12 +1,13 @@
 //@ts-nocheck
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useFormik, FormikHelpers, FormikValues } from "formik";
+import * as yup from "yup";
 
 import { Button, InputField, ErrorMessages } from "components/shared/shared";
 import { useAuth } from "contexts/AuthContext";
 import { Actions } from "types/ActionTypes";
-import * as yup from "yup";
+import Popup from "components/Popup";
 
 import {
     MainContainer,
@@ -32,6 +33,10 @@ export const LandingPage: React.FC<IProps> = () => {
         authState: { token },
         authDispatch,
     } = useAuth();
+    const [popupState, setPopupState] = useState({
+        isShowing: false,
+        message: "",
+    });
 
     const LoginSchema = yup.object({
         email: yup.string().required("Email is required").email(),
@@ -43,25 +48,41 @@ export const LandingPage: React.FC<IProps> = () => {
             const response = await api.post("/login", {
                 data: { email: values.email, password: values.password },
             });
+
             const data = response.data;
-            authDispatch({
-                type: Actions.SET_TOKEN,
-                payload: {
-                    token: data.token,
-                    userID: data.userID,
-                },
+            setPopupState({
+                isShowing: true,
+                message: "Successfully Logged In",
             });
-            authDispatch({
-                type: Actions.SET_USER,
-                payload: {
-                    user: data.user,
-                },
-            });
-            navigate("/dashboard/home");
-            console.log(data);
+
+            setTimeout(() => {
+                authDispatch({
+                    type: Actions.SET_TOKEN,
+                    payload: {
+                        token: data.token,
+                        userID: data.userID,
+                    },
+                });
+                authDispatch({
+                    type: Actions.SET_USER,
+                    payload: {
+                        user: data.user,
+                    },
+                });
+                setPopupState({ isShowing: false, message: "" });
+                navigate("/dashboard/home");
+            }, 3000);
         } catch (err) {
-            alert(err);
-            console.log(err);
+            if (err.response) {
+                setPopupState({
+                    isShowing: true,
+                    message: err.response.data.message,
+                });
+            }
+            console.log(err.response);
+            setTimeout(() => {
+                setPopupState({ isShowing: false, message: "" });
+            }, 3000);
         }
     };
 
@@ -81,6 +102,7 @@ export const LandingPage: React.FC<IProps> = () => {
     return (
         <MainContainer>
             <Container>
+                {popupState.isShowing && <Popup message={popupState.message} />}
                 <HeroLeft>
                     <Logo src={logoImg} alt="Findmeow Logo" />
                     <LoginForm onSubmit={formik.handleSubmit}>
