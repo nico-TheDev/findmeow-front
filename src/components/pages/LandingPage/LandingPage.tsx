@@ -6,6 +6,7 @@ import { useFormik, FormikHelpers, FormikValues } from "formik";
 import { Button, InputField, ErrorMessages } from "components/shared/shared";
 import { useAuth } from "contexts/AuthContext";
 import { Actions } from "types/ActionTypes";
+import * as yup from "yup";
 
 import {
     MainContainer,
@@ -32,29 +33,10 @@ export const LandingPage: React.FC<IProps> = () => {
         authDispatch,
     } = useAuth();
 
-    const LoginValidator = (values: FormikValues) => {
-        let errors: { email: string; password: string } = {
-            email: "",
-            password: "",
-        };
-
-        if (!validateEmail(values.email)) {
-            errors.email = "Invalid email";
-        }
-
-        if (values.email.length === 0) {
-            errors.email = "This field is required";
-        }
-        if (values.password.length === 0) {
-            errors.password = "This field is required";
-        }
-
-        if (values.password.length < 6) {
-            errors.password = "Minimum password length is 6 characters";
-        }
-
-        return errors;
-    };
+    const LoginSchema = yup.object({
+        email: yup.string().required("Email is required").email(),
+        password: yup.string().required("Password is required"),
+    });
 
     const handleSubmit = async (values: FormikValues) => {
         try {
@@ -89,6 +71,7 @@ export const LandingPage: React.FC<IProps> = () => {
             password: "",
         },
         onSubmit: handleSubmit,
+        validationSchema: LoginSchema,
     });
 
     useEffect(() => {
@@ -105,7 +88,7 @@ export const LandingPage: React.FC<IProps> = () => {
                         <InputField>
                             <input
                                 type="text"
-                                placeholder="Email"
+                                placeholder="example@gmail.com"
                                 id="email"
                                 name="email"
                                 onChange={formik.handleChange}
@@ -114,7 +97,7 @@ export const LandingPage: React.FC<IProps> = () => {
                             <ErrorMessages hasError={formik.errors.email}>
                                 {formik.errors.email
                                     ? formik.errors.email
-                                    : "Example:name@email.com"}
+                                    : null}
                             </ErrorMessages>
                         </InputField>
                         <InputField>
@@ -129,7 +112,7 @@ export const LandingPage: React.FC<IProps> = () => {
                             <ErrorMessages hasError={formik.errors.password}>
                                 {formik.errors.password
                                     ? formik.errors.password
-                                    : "Must not be less than 6 characters"}
+                                    : null}
                             </ErrorMessages>
                         </InputField>
                         <BottomForm>

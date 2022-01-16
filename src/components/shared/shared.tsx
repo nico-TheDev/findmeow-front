@@ -69,6 +69,6 @@ export const InputField = styled.div`
 `;
 
 export const ErrorMessages = styled.span`
-    color: ${({ hasError }) => (hasError ? "red" : "black")} !important;
+    color: ${({ hasError }) => (hasError ? "red" : "green")} !important;
     font-weight: ${({ hasError }) => (hasError ? "bold" : "normal")} !important;
 `;

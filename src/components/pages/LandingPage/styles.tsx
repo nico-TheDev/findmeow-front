@@ -55,7 +55,7 @@ export const LoginForm = styled.form`
     width: 60%;
     margin: 0 auto;
     display: grid;
-    gap: 1rem;
+    gap: 0.5rem;
     h2 {
         color: ${({ theme }) => theme.primary.dark};
         font-weight: 400;

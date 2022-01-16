@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFormik, FormikValues } from "formik";
+import * as yup from "yup";
 
 import { Actions } from "types/ActionTypes";
 import { useAuth } from "contexts/AuthContext";
@@ -21,16 +22,6 @@ import Icon from "components/shared/Icon";
 import validateEmail from "util/validateEmail";
 
 interface IProps {}
-
-interface ErrorType {
-    email: string;
-    password: string;
-    name: string;
-    username: string;
-    location: string;
-    contact: string;
-    profileImg: string;
-}
 
 export const SignupPage: React.FC<IProps> = () => {
     const navigate = useNavigate();
@@ -70,44 +61,23 @@ export const SignupPage: React.FC<IProps> = () => {
         console.log(target.files[0]);
     };
 
-    const signupValidator = (values: FormikValues) => {
-        let errors: ErrorType = {
-            email: "",
-            password: "",
-            name: "",
-            username: "",
-            location: "",
-            contact: "",
-        };
-
-        if (!validateEmail(values.email)) {
-            errors.email = "Invalid email";
-        }
-
-        if (values.email.length === 0) {
-            errors.email = "Email is required";
-        }
-        if (values.password.length === 0) {
-            errors.password = "Password is required";
-        }
-        if (values.name.length === 0) {
-            errors.name = "Name is required";
-        }
-        if (values.username.length === 0) {
-            errors.username = "Username is required";
-        }
-        if (values.location.length === 0) {
-            errors.location = "Location is required";
-        }
-        if (values.contact.length === 0) {
-            errors.contact = "Contact information is required";
-        }
-        if (values.password.length < 6) {
-            errors.password = "Minimum password length is 6 characters";
-        }
-
-        return errors;
-    };
+    const SignupSchema = yup.object({
+        email: yup
+            .string()
+            .email("Invalid email")
+            .required("Email is required"),
+        password: yup
+            .string()
+            .required("Password is required")
+            .min(6, "Password must not be less than 6 characters"),
+        name: yup.string().required("Name is required"),
+        username: yup
+            .string()
+            .required("Username is required")
+            .max(20, "Maximum of 20 characters"),
+        location: yup.string().required("Location is required"),
+        contact: yup.string().required("Contact is required"),
+    });
 
     const formik = useFormik({
         initialValues: {
@@ -120,6 +90,7 @@ export const SignupPage: React.FC<IProps> = () => {
             profileImg: "",
         },
         onSubmit: handleSubmit,
+        validationSchema: SignupSchema,
     });
 
     const handleBack = () => {
@@ -141,43 +112,40 @@ export const SignupPage: React.FC<IProps> = () => {
                         <InputField>
                             <input
                                 type="text"
-                                placeholder="Email"
+                                placeholder="exampl@gmail.com"
                                 id="email"
                                 name="email"
                                 onChange={formik.handleChange}
                                 value={formik.values.email}
                             />
                             <ErrorMessages hasError={formik.errors.email}>
-                                {formik.errors.email ||
-                                    "Example:juandelacruz@gmail.com"}
+                                {formik.errors.email || null}
                             </ErrorMessages>{" "}
                         </InputField>
                         <InputField>
                             <input
                                 type="text"
-                                placeholder="Username"
+                                placeholder="jndlcrz1234"
                                 id="username"
                                 name="username"
                                 onChange={formik.handleChange}
                                 value={formik.values.username}
                             />
                             <ErrorMessages hasError={formik.errors.username}>
-                                {formik.errors.username ||
-                                    "Example:jndlcrz2022"}
+                                {formik.errors.username || null}
                             </ErrorMessages>
                         </InputField>
                         <InputField>
                             <input
                                 type="text"
-                                placeholder="Name"
+                                placeholder="Juan Dela Cruz"
                                 id="name"
                                 name="name"
                                 onChange={formik.handleChange}
                                 value={formik.values.name}
                             />
                             <ErrorMessages hasError={formik.errors.name}>
-                                {formik.errors.name ||
-                                    "Example: Juan Dela Cruz"}
+                                {formik.errors.name || null}
                             </ErrorMessages>{" "}
                         </InputField>
                         <InputField>
@@ -190,8 +158,7 @@ export const SignupPage: React.FC<IProps> = () => {
                                 value={formik.values.location}
                             />
                             <ErrorMessages hasError={formik.errors.location}>
-                                {formik.errors.location ||
-                                    "Example: Metro Manila"}
+                                {formik.errors.location || null}
                             </ErrorMessages>{" "}
                         </InputField>
                     </Left>
@@ -200,15 +167,14 @@ export const SignupPage: React.FC<IProps> = () => {
                         <InputField>
                             <input
                                 type="text"
-                                placeholder="Contact"
+                                placeholder="0912*****123"
                                 id="contact"
                                 name="contact"
                                 onChange={formik.handleChange}
                                 value={formik.values.contact}
                             />
                             <ErrorMessages hasError={formik.errors.contact}>
-                                {formik.errors.contact ||
-                                    "Example: 09123451212"}
+                                {formik.errors.contact || null}
                             </ErrorMessages>{" "}
                         </InputField>
                         <InputField>
@@ -221,8 +187,7 @@ export const SignupPage: React.FC<IProps> = () => {
                                 value={formik.values.password}
                             />
                             <ErrorMessages hasError={formik.errors.password}>
-                                {formik.errors.password ||
-                                    "Minimum of 6 characters"}
+                                {formik.errors.password || null}
                             </ErrorMessages>{" "}
                         </InputField>
                         <Upload>
