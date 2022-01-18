@@ -22,7 +22,7 @@ import {
 import api from "api";
 import logoImg from "assets/img/findmeow-logo-2.png";
 import heroImg from "assets/img/landing-img-1.png";
-import validateEmail from "util/validateEmail";
+import Loader from "components/Loader";
 
 interface IProps {}
 
@@ -38,6 +38,8 @@ export const LandingPage: React.FC<IProps> = () => {
         message: "",
     });
 
+    const [showLoader, setShowLoader] = useState(false);
+
     const LoginSchema = yup.object({
         email: yup.string().required("Email is required").email(),
         password: yup.string().required("Password is required"),
@@ -45,11 +47,14 @@ export const LandingPage: React.FC<IProps> = () => {
 
     const handleSubmit = async (values: FormikValues) => {
         try {
+            setShowLoader(true);
             const response = await api.post("/login", {
                 data: { email: values.email, password: values.password },
             });
 
             const data = response.data;
+            setShowLoader(false);
+
             setPopupState({
                 isShowing: true,
                 message: "Successfully Logged In",
@@ -74,9 +79,16 @@ export const LandingPage: React.FC<IProps> = () => {
             }, 3000);
         } catch (err) {
             if (err.response) {
+                setShowLoader(false);
                 setPopupState({
                     isShowing: true,
                     message: err.response.data.message,
+                });
+            } else {
+                setShowLoader(false);
+                setPopupState({
+                    isShowing: true,
+                    message: "Something went wrong. Please try again.",
                 });
             }
             console.log(err.response);
@@ -101,8 +113,12 @@ export const LandingPage: React.FC<IProps> = () => {
 
     return (
         <MainContainer>
+            {showLoader && <Loader />}
             <Container>
-                {popupState.isShowing && <Popup message={popupState.message} />}
+                <Popup
+                    message={popupState.message}
+                    isShowing={popupState.isShowing}
+                />
                 <HeroLeft>
                     <Logo src={logoImg} alt="Findmeow Logo" />
                     <LoginForm onSubmit={formik.handleSubmit}>

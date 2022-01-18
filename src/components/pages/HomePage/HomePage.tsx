@@ -19,6 +19,7 @@ const HomePage: React.FC<IProps> = () => {
                     path="/dashboard/adopt"
                     pathName="View Newsfeed"
                     title="Adopt"
+                    type="adoption"
                 />
                 <Card
                     img={globeImg}
@@ -26,6 +27,7 @@ const HomePage: React.FC<IProps> = () => {
                     path="/dashboard/find"
                     pathName="View Newsfeed"
                     title="Find"
+                    type="missing"
                 />
             </CardContainer>
         </PageWrapper>
