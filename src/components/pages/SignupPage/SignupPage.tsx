@@ -20,16 +20,18 @@ import {
 } from "./styles";
 import Icon from "components/shared/Icon";
 import validateEmail from "util/validateEmail";
-
+import Loader from "components/Loader";
 interface IProps {}
 
 export const SignupPage: React.FC<IProps> = () => {
     const navigate = useNavigate();
     const { authDispatch } = useAuth();
     const [profileImg, setProfileImg] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = async (values: FormikValues) => {
         try {
+            setIsLoading(true);
             const formData = new FormData();
 
             formData.append("email", values.email);
@@ -41,6 +43,8 @@ export const SignupPage: React.FC<IProps> = () => {
             formData.append("profileImg", profileImg);
 
             const response = await api.post("/signup", formData);
+            setIsLoading(false);
+
             authDispatch({ type: Actions.SET_USER, payload: response.data });
             authDispatch({
                 type: Actions.SET_TOKEN,
@@ -99,6 +103,7 @@ export const SignupPage: React.FC<IProps> = () => {
 
     return (
         <MainContainer>
+            {isLoading && <Loader />}
             <Container>
                 <BackBtn onClick={handleBack}>
                     <Icon name="close" />

@@ -15,6 +15,7 @@ export const PetMain = styled.div`
     gap: 1rem;
     min-height: 70vh;
     z-index: 2;
+    position: relative;
 `;
 
 export const PetLeft = styled.div`

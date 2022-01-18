@@ -14,6 +14,7 @@ import {
 } from "./styles";
 import { PetDetails } from "types/ActionTypes";
 import formatDate from "util/formatDate";
+import BackButton from "components/shared/BackButton";
 
 interface IProps {
     type?: string;
@@ -58,6 +59,8 @@ const PetProfilePage: React.FC<IProps> = () => {
     return (
         <PageWrapper title="Pet Profile">
             <PetMain>
+                <BackButton path={`/dashboard/home`} />
+
                 <PetLeft>
                     <img src={postImgSrc} alt="" />
                     <PetBottom>
