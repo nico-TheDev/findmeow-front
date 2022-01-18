@@ -1,9 +1,11 @@
 // @ts-nocheck
 import React, { useState } from "react";
 import { useFormik, FormikValues } from "formik";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import PageWrapper from "components/shared/PageWrapper";
 import { InputField } from "components/shared/shared";
+import Popup from "components/Popup";
 import {
     PetMain,
     PetButton,
@@ -13,16 +15,24 @@ import {
     UploadBtn,
 } from "./styles";
 import api from "api";
-import PetList from "components/PetList";
 import createBG from "assets/img/create-post-bg.png";
 import { useAuth } from "contexts/AuthContext";
+import capitalizeFirstLetter from "util/capitalizeFirstLetter";
 
 interface IProps {}
 
 const CreatePostPage: React.FC<IProps> = () => {
+    const location = useLocation();
+    const navigate = useNavigate();
+    const { type: postType } = location.state;
     const [postImg, setPostImg] = useState("");
     const { authState } = useAuth();
     const { userID } = authState;
+    const [popupState, setPopupState] = useState({
+        isShowing: true,
+        message: "Post Created",
+    });
+
     const handleSubmit = async (values: FormikValues, { resetForm }) => {
         const postData = new FormData();
         try {
@@ -30,7 +40,7 @@ const CreatePostPage: React.FC<IProps> = () => {
             postData.append("breed", values.breed);
             postData.append("description", values.petDescription);
             postData.append("location", values.location);
-            postData.append("type", values.type);
+            postData.append("type", postType);
             postData.append("imgFile", postImg);
             postData.append("userId", userID);
             console.log(values, postImg);
@@ -55,13 +65,29 @@ const CreatePostPage: React.FC<IProps> = () => {
             breed: "",
             petDescription: "",
             location: "",
-            type: "",
         },
         onSubmit: handleSubmit,
     });
 
+    const handleNo = () => {
+        if (postType === "adoption") navigate("/dashboard/adopt");
+        if (postType === "missing") navigate("/dashboard/find");
+    };
+
     return (
-        <PageWrapper title="Create Post">
+        <PageWrapper title={`Create Post (${capitalizeFirstLetter(postType)})`}>
+            {popupState.isShowing && (
+                <Popup
+                    hasButtons={true}
+                    message={popupState.message}
+                    yesStr="Post Again"
+                    noStr="Return to Newsfeed"
+                    yesFunc={() =>
+                        setPopupState({ isShowing: false, ...popupState })
+                    }
+                    noFunc={handleNo()}
+                />
+            )}
             <PetMain>
                 <PetImg src={createBG} />
                 <PetForm onSubmit={formik.handleSubmit} id="petDetails">
@@ -95,28 +121,7 @@ const CreatePostPage: React.FC<IProps> = () => {
                             value={formik.values.location}
                         />
                     </InputField>
-                    <RadioGroup role="group" aria-labelledby="my-radio-group">
-                        <label>
-                            <input
-                                type="radio"
-                                id="missing"
-                                name="type"
-                                value="missing"
-                                onChange={formik.handleChange}
-                            />
-                            Missing
-                        </label>
-                        <label>
-                            <input
-                                type="radio"
-                                id="adoption"
-                                name="type"
-                                value="adoption"
-                                onChange={formik.handleChange}
-                            />
-                            Adoption
-                        </label>
-                    </RadioGroup>
+
                     <InputField>
                         <textarea
                             placeholder="Input Pet Description"

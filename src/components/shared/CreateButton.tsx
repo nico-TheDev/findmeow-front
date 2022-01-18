@@ -5,13 +5,14 @@ import { useNavigate } from "react-router-dom";
 
 interface IProps {
     path: string;
+    type: string;
 }
 
-const CreateButton: React.FC<IProps> = ({ path }) => {
+const CreateButton: React.FC<IProps> = ({ path, type }) => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate(path);
+        navigate(path, { state: { type } });
     };
     return (
         <CreateBtn onClick={handleClick}>

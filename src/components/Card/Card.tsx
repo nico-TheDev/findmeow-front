@@ -17,6 +17,7 @@ interface IProps {
     title: string;
     path: string;
     pathName: string;
+    type: string;
 }
 
 const Card: React.FC<IProps> = ({
@@ -25,11 +26,12 @@ const Card: React.FC<IProps> = ({
     path,
     title,
     pathName,
+    type,
 }) => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate("/dashboard/post/create");
+        navigate("/dashboard/post/create", { state: { type } });
     };
 
     return (

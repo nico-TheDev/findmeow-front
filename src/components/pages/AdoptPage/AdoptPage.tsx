@@ -11,7 +11,7 @@ const AdoptPage: React.FC<IProps> = () => {
     return (
         <PageWrapper title="Adopt" imgSrc={catBg}>
             <PetList type="adopt" />
-            <CreateButton path="/dashboard/post/create" />
+            <CreateButton path="/dashboard/post/create" type="adoption" />
         </PageWrapper>
     );
 };

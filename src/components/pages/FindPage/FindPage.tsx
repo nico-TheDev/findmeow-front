@@ -11,7 +11,7 @@ const FindPage: React.FC<IProps> = () => {
     return (
         <PageWrapper title="Find" imgSrc={globeBg}>
             <PetList type="find" />
-            <CreateButton path="/dashboard/post/create" />
+            <CreateButton path="/dashboard/post/create" type="missing" />
         </PageWrapper>
     );
 };
