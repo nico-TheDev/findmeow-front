@@ -24,8 +24,8 @@ interface IProps {
 const Popup: React.FC<IProps> = ({
     hasButtons,
     message,
-    yesFunc = () => {},
-    noFunc = () => {},
+    yesFunc,
+    noFunc,
     yesStr,
     noStr,
     isShowing,

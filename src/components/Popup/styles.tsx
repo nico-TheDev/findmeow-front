@@ -15,7 +15,7 @@ export const PopupCard = styled.div`
     text-align: center;
     z-index: 999;
     opacity: ${({ isShowing }) => (isShowing ? "1" : "0")};
-    pointer-events: ${({ isShowing }) => (isShowing ? "none" : "all")};
+    pointer-events: ${({ isShowing }) => (isShowing ? "all" : "none")};
 `;
 
 export const MessageHead = styled.h3`

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Masonry from "react-masonry-css";
 import PetCard from "components/PetCard";
-import { PetContainer } from "./styles";
+import { PetContainer, EmptyBody, EmptyImg } from "./styles";
 import api from "api";
 import { PetDetails } from "types/ActionTypes";
-
+import emptyImg from "assets/img/empty.png";
 interface IProps {
     collection: PetDetails[];
-    type: string;
+    type?: string;
 }
 
 const breakpointColumnsObj = {
@@ -23,9 +23,16 @@ const PetList: React.FC<IProps> = ({ collection, type }) => {
             className="my-masonry-grid"
             columnClassName="my-masonry-grid_column"
         >
-            {collection.map((item: PetDetails) => (
-                <PetCard key={item._id} details={item} type={type} />
-            ))}
+            {collection.length !== 0 ? (
+                collection.map((item: PetDetails) => (
+                    <PetCard key={item._id} details={item} type={item.type} />
+                ))
+            ) : (
+                <EmptyBody>
+                    <EmptyImg src={emptyImg} />
+                    <h2>Woah. So empty.</h2>
+                </EmptyBody>
+            )}
         </Masonry>
     );
 };

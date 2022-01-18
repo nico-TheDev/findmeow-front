@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import styled from "styled-components";
 
 export const CardMain = styled.div``;
@@ -41,4 +43,13 @@ export const CardImg = styled.div`
 
 export const CardDesc = styled.div`
     padding: 1rem;
+`;
+
+export const CardType = styled.h3`
+    text-align: center;
+    padding: 1rem 0;
+    background: ${({ type, theme }) =>
+        type === "adoption" ? theme.primary.light : theme.primary.green};
+    color: white;
+    width: 100%;
 `;
