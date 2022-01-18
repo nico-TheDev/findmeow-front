@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import styled from "styled-components";
 
 export const PopupCard = styled.div`
@@ -11,6 +13,9 @@ export const PopupCard = styled.div`
     border-radius: 1.5rem;
     min-width: 300px;
     text-align: center;
+    z-index: 999;
+    opacity: ${({ isShowing }) => (isShowing ? "1" : "0")};
+    pointer-events: ${({ isShowing }) => (isShowing ? "none" : "all")};
 `;
 
 export const MessageHead = styled.h3`
@@ -31,12 +36,23 @@ export const ButtonHolder = styled.div`
     align-items: center;
     justify-content: end;
     gap: 1rem;
+    text-transform: uppercase;
 `;
 
 export const YesBtn = styled.button`
-    color: green; ;
+    color: rgb(0, 128, 0);
+    text-transform: inherit;
+
+    &:hover {
+        color: rgb(132, 245, 132);
+    }
 `;
 
 export const NoBtn = styled.button`
-    color: red;
+    color: rgb(255, 0, 0);
+    text-transform: inherit;
+
+    &:hover {
+        color: #ad2424;
+    }
 `;
