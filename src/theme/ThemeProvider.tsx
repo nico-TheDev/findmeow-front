@@ -3,6 +3,7 @@ interface ThemeType {
         light: string;
         main: string;
         dark: string;
+        green: string;
     };
     secondary: {
         main: string;
@@ -16,6 +17,7 @@ const theme: ThemeType = {
         light: "#FF80AB",
         main: "#F06292",
         dark: "#FF80AB",
+        green: "#64DD17",
     },
     secondary: {
         main: "#FCE4EC",

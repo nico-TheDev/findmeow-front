@@ -48,4 +48,5 @@ export interface PetDetails {
     createdAt: string;
     description: string;
     userId: string;
+    type: string;
 }

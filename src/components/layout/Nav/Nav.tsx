@@ -54,12 +54,10 @@ const Nav: React.FC<IProps> = () => {
                         <Link to="/dashboard/adopt">Adopt a Pet</Link>
                     </NavItem>
                     <NavItem className="userPhoto">
-                        <Link to="/dashboard/profile">
-                            <UserImg
-                                src={token ? avatarSrc : avatarPlaceholder}
-                                alt=""
-                            />
-                        </Link>
+                        <UserImg
+                            src={token ? avatarSrc : avatarPlaceholder}
+                            alt=""
+                        />
                         <AccountOptions className="options" token={token}>
                             <button onClick={handleProfile}>Profile</button>
                             <button onClick={handleLogout}>Logout</button>
