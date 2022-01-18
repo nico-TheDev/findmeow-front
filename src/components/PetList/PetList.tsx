@@ -6,6 +6,7 @@ import api from "api";
 import { PetDetails } from "types/ActionTypes";
 
 interface IProps {
+    collection: PetDetails[];
     type: string;
 }
 
@@ -15,31 +16,16 @@ const breakpointColumnsObj = {
     500: 1,
 };
 
-const PetList: React.FC<IProps> = ({ type }) => {
-    const [timelinePosts, setTimelinePosts] = useState([]);
-
-    useEffect(() => {
-        const getPostCollection = async () => {
-            const response = await api.get(`/post/${type}/timeline`);
-            setTimelinePosts(response.data.posts);
-            console.log(response.data);
-        };
-        getPostCollection();
-    }, []);
-
+const PetList: React.FC<IProps> = ({ collection, type }) => {
     return (
         <Masonry
             breakpointCols={breakpointColumnsObj}
             className="my-masonry-grid"
             columnClassName="my-masonry-grid_column"
         >
-            {timelinePosts.length ? (
-                timelinePosts.map((item: PetDetails) => (
-                    <PetCard key={item._id} details={item} type={type} />
-                ))
-            ) : (
-                <h2>TIMELINE SO EMPTY</h2>
-            )}
+            {collection.map((item: PetDetails) => (
+                <PetCard key={item._id} details={item} type={type} />
+            ))}
         </Masonry>
     );
 };

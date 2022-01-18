@@ -3,14 +3,14 @@ import useSWR from "swr";
 
 const fetcher = (url: string) => api.get(url).then((res) => res.data);
 
-const useGetPostCollection = (userID: string) => {
+const useUserPostCollection = (userID: string) => {
     const { data, error } = useSWR(`/post/user/${userID}`, fetcher);
 
     return {
-        data,
-        error,
+        collection: data,
+        isError: error,
         isLoading: !data && !error,
     };
 };
 
-export default useGetPostCollection;
+export default useUserPostCollection;
