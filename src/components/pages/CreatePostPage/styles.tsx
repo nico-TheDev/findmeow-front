@@ -14,6 +14,7 @@ export const PetMain = styled.div`
     justify-items: center;
     gap: 1rem;
     min-height: 70vh;
+    position: relative;
 `;
 export const PetImg = styled.img`
     width: 80%;

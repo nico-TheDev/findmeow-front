@@ -95,3 +95,10 @@ export const CreateBtn = styled(Button)`
         height: 2rem;
     }
 `;
+
+export const BackBtn = styled(CreateBtn)`
+    bottom: inherit;
+    right: inherit;
+    top: 5%;
+    left: 3%;
+`;

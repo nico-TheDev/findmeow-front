@@ -4,6 +4,7 @@ import { useFormik, FormikValues } from "formik";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import PageWrapper from "components/shared/PageWrapper";
+import BackButton from "components/shared/BackButton";
 import { InputField } from "components/shared/shared";
 import Popup from "components/Popup";
 import {
@@ -89,6 +90,12 @@ const CreatePostPage: React.FC<IProps> = () => {
                 />
             )}
             <PetMain>
+                <BackButton
+                    path={`/dashboard/${
+                        postType === "adoption" ? "adopt" : "find"
+                    }`}
+                />
+
                 <PetImg src={createBG} />
                 <PetForm onSubmit={formik.handleSubmit} id="petDetails">
                     <InputField>
