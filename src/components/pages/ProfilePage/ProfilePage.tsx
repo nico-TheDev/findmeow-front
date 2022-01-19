@@ -1,5 +1,8 @@
+// @ts-nocheck
+
 import React, { useEffect, useState } from "react";
 import Masonry from "react-masonry-css";
+import { Image } from "cloudinary-react";
 
 import PageWrapper from "components/shared/PageWrapper";
 import { ProfileCard, ProfileMain, ProfilePosts, PostList } from "./styles";
@@ -24,11 +27,18 @@ const ProfilePage: React.FC<IProps> = () => {
         };
         getPostCollection();
     }, []);
+
     return (
         <PageWrapper title="Profile">
             <ProfileMain>
                 <ProfileCard>
-                    <img src={profileImgSrc} alt={user?.name + "photo"} />
+                    <Image
+                        cloudName={process.env.REACT_APP_CLOUDINARY_NAME}
+                        publicId={user?.profileImg}
+                        radius="max"
+                        width="250"
+                        height="250"
+                    />
                     <h3>{user?.name}</h3>
                     <h4>{user?.location}</h4>
                     <h4>{user?.email}</h4>

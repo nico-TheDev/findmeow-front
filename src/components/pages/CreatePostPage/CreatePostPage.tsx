@@ -56,8 +56,7 @@ const CreatePostPage: React.FC<IProps> = () => {
                 type: "post",
             });
 
-            console.log(uploadResponse.data.asset_id);
-            setPhotoID(uploadResponse.data.asset_id);
+            return uploadResponse.data.public_id;
         } catch (err) {
             console.log(err);
         }
@@ -65,44 +64,46 @@ const CreatePostPage: React.FC<IProps> = () => {
 
     const handleSubmit = async (values: FormikValues, { resetForm }) => {
         try {
-            // SHOW LOADER
-            setIsLoading(true);
+            if (fileInputState) {
+                // SHOW LOADER
+                setIsLoading(true);
 
-            // IMAGE UPLOAD STUFF
-            const reader = new FileReader();
-            reader.readAsDataURL(postImg);
-            reader.onloadend = async () => {
-                uploadImage(reader.result);
-                const response = await api.post("/post/create", {
-                    name: values.petname,
-                    breed: values.breed,
-                    description: values.petDescription,
-                    location: values.location,
-                    type: postType,
-                    imgFile: photoID,
-                    userId: userID,
-                });
-                setIsLoading(false);
+                // IMAGE UPLOAD STUFF
+                const reader = new FileReader();
+                reader.readAsDataURL(postImg);
+                reader.onloadend = async () => {
+                    const targetID = await uploadImage(reader.result);
+                    const response = await api.post("/post/create", {
+                        name: values.petname,
+                        breed: values.breed,
+                        description: values.petDescription,
+                        location: values.location,
+                        type: postType,
+                        imgFile: targetID,
+                        userId: userID,
+                    });
+                    setIsLoading(false);
 
-                setPopupState({
-                    isShowing: true,
-                    message: "Post Created",
-                    hasButtons: true,
-                });
-                setFileInputState("");
-                setPreviewSource("");
-                setPostImg("");
-                setPhotoID("");
-                resetForm();
-            };
-            reader.onerror = () => {
-                console.log("ERROR IN UPLOADING PHOTO");
-                setPopupState({
-                    isShowing: true,
-                    message: "Error in uploading",
-                    hasButtons: false,
-                });
-            };
+                    setPopupState({
+                        isShowing: true,
+                        message: "Post Created",
+                        hasButtons: true,
+                    });
+                    setFileInputState("");
+                    setPreviewSource("");
+                    setPostImg("");
+                    setPhotoID("");
+                    resetForm();
+                };
+                reader.onerror = () => {
+                    console.log("ERROR IN UPLOADING PHOTO");
+                    setPopupState({
+                        isShowing: true,
+                        message: "Error in uploading",
+                        hasButtons: false,
+                    });
+                };
+            }
         } catch (err) {
             setPopupState({
                 isShowing: true,

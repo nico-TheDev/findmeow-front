@@ -53,6 +53,7 @@ export const LandingPage: React.FC<IProps> = () => {
             });
 
             const data = response.data;
+
             setShowLoader(false);
 
             setPopupState({

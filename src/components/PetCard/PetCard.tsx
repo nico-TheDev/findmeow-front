@@ -1,13 +1,15 @@
 //@ts-nocheck
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { Image, Placeholder } from "cloudinary-react";
 
 import { useAuth } from "contexts/AuthContext";
 import { PetDetails } from "types/ActionTypes";
-import { CardMain, CardHead, CardImg, CardDesc, CardType } from "./styles";
+import { CardLoader, CardHead, CardImg, CardDesc, CardType } from "./styles";
 import formatDate from "util/formatDate";
 import api from "api";
 import truncateString from "util/formatDesc";
+import usePostOwner from "hooks/usePostOwner";
 
 interface IProps {
     details: PetDetails;
@@ -21,24 +23,14 @@ const PetCard: React.FC<IProps> = ({ details, type }) => {
     const [postOwnerSrc, setPostOwnerSrc] = useState("");
     const [postImgSrc, setPostImgSrc] = useState("");
 
-    useEffect(() => {
-        setPostImgSrc(`${process.env.REACT_APP_IMG_PATH}${details.image}`);
-
-        const getPostOwner = async () => {
-            const response = await api.get(`/user/${details.userId}`);
-            const postOwner = response.data.user;
-            setPostOwnerSrc(
-                `${process.env.REACT_APP_IMG_PATH}${postOwner?.profileImg}`
-            );
-        };
-
-        getPostOwner();
-    }, []);
+    const { owner, isLoading } = usePostOwner(details.userId);
 
     const getType = (type: string) => {
         if (type === "adoption") return "adopt";
         if (type === "missing") return "find";
     };
+
+    if (isLoading) return <CardLoader />;
 
     return (
         <Link
@@ -49,7 +41,14 @@ const PetCard: React.FC<IProps> = ({ details, type }) => {
                 <CardType type={type}>{type.toUpperCase()}</CardType>
             )}{" "}
             <CardHead>
-                <img src={postOwnerSrc} alt={`${details.name} photo`} />
+                <Image
+                    cloudName={process.env.REACT_APP_CLOUDINARY_NAME}
+                    publicId={owner.profileImg}
+                    radius="max"
+                    width="40"
+                    height="40"
+                />
+
                 <div>
                     <h4>{details.name}</h4>
                     <span>{truncateString(details.location, 15)}</span>
@@ -57,7 +56,15 @@ const PetCard: React.FC<IProps> = ({ details, type }) => {
                 <span>{formatDate(details.createdAt)}</span>
             </CardHead>
             <CardImg>
-                <img src={postImgSrc} alt="Post Photo" />
+                <Image
+                    cloudName={process.env.REACT_APP_CLOUDINARY_NAME}
+                    publicId={details.image}
+                    width="300"
+                    height="300"
+                    crop="scale"
+                >
+                    <Placeholder type="pixelated" />
+                </Image>
             </CardImg>
             <CardDesc>{truncateString(details.description, 100)}</CardDesc>
         </Link>

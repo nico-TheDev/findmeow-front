@@ -62,57 +62,56 @@ export const SignupPage: React.FC<IProps> = () => {
                 data: base64EncodedImage,
                 type: "user",
             });
-
-            console.log(uploadResponse.data.asset_id);
-            setPhotoID(uploadResponse.data.asset_id);
+            return uploadResponse.data.public_id;
         } catch (err) {
             console.log(err);
         }
     };
 
-    const handleSignup = async (values: FormikValues) => {
-        const response = await api.post("/signup", {
-            email: values.email,
-            password: values.password,
-            name: values.name,
-            username: values.username,
-            location: values.location,
-            contact: values.contact,
-            profileImg: photoID,
-        });
-        setIsLoading(false);
-
-        authDispatch({
-            type: Actions.SET_USER,
-            payload: response.data,
-        });
-        authDispatch({
-            type: Actions.SET_TOKEN,
-            payload: {
-                token: response.data.token,
-                userID: response.data.userID,
-            },
-        });
-        navigate("/dashboard/home");
-    };
-
     const handleSubmit = async (values: FormikValues) => {
         try {
-            setIsLoading(true);
-            const reader = new FileReader();
-            if (profileImg) {
+            if (fileInputState) {
+                setIsLoading(true);
+                const reader = new FileReader();
                 reader.readAsDataURL(profileImg);
                 reader.onloadend = async () => {
-                    uploadImage(reader.result);
-                    handleSignup(values);
+                    const targetID = await uploadImage(reader.result);
+                    setPhotoID(targetID);
+                    const response = await api.post("/signup", {
+                        email: values.email,
+                        password: values.password,
+                        name: values.name,
+                        username: values.username,
+                        location: values.location,
+                        contact: values.contact,
+                        profileImg: targetID,
+                    });
+                    setIsLoading(false);
+
+                    authDispatch({
+                        type: Actions.SET_USER,
+                        payload: response.data,
+                    });
+                    authDispatch({
+                        type: Actions.SET_TOKEN,
+                        payload: {
+                            token: response.data.token,
+                            userID: response.data.userID,
+                        },
+                    });
+                    navigate("/dashboard/home");
                 };
             } else {
-                handleSignup(values);
+                setPopupState({
+                    isShowing: true,
+                    ...popupState,
+                    message: "You need a profile picture",
+                });
             }
         } catch (err) {
             console.log(err);
             setPopupState({
-                isShowing: false,
+                isShowing: true,
                 ...popupState,
                 message: err,
             });

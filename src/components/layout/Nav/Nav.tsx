@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -13,7 +14,7 @@ import {
 } from "./styles";
 import { useAuth } from "contexts/AuthContext";
 import navLogo from "assets/img/findmeow-logo.png";
-import avatarPlaceholder from "assets/img/avatar-icon.png";
+import { Image } from "cloudinary-react";
 
 interface IProps {}
 
@@ -54,9 +55,12 @@ const Nav: React.FC<IProps> = () => {
                         <Link to="/dashboard/adopt">Adopt a Pet</Link>
                     </NavItem>
                     <NavItem className="userPhoto">
-                        <UserImg
-                            src={token ? avatarSrc : avatarPlaceholder}
-                            alt=""
+                        <Image
+                            cloudName={process.env.REACT_APP_CLOUDINARY_NAME}
+                            publicId={user?.profileImg}
+                            radius="max"
+                            width="40"
+                            height="40"
                         />
                         <AccountOptions className="options" token={token}>
                             <button onClick={handleProfile}>Profile</button>

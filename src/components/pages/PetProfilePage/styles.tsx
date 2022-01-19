@@ -52,6 +52,10 @@ export const PetRight = styled.div`
         font-size: 3rem;
     }
 
+    h5 {
+        font-size: 1.5rem;
+    }
+
     p {
         font-size: 1.2rem;
     }

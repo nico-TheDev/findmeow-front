@@ -1,5 +1,7 @@
+// @ts-nocheck
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Image, Placeholder } from "cloudinary-react";
 
 import api from "api";
 import PageWrapper from "components/shared/PageWrapper";
@@ -15,6 +17,8 @@ import {
 import { PetDetails } from "types/ActionTypes";
 import formatDate from "util/formatDate";
 import BackButton from "components/shared/BackButton";
+import usePostDetails from "hooks/usePostDetails";
+import Spinner from "components/Spinner";
 
 interface IProps {
     type?: string;
@@ -22,39 +26,13 @@ interface IProps {
 
 const PetProfilePage: React.FC<IProps> = () => {
     const { id } = useParams();
-    const [petDetails, setPetDetails] = useState<PetDetails | null | undefined>(
-        null
-    );
-    const [postOwnerSrc, setPostOwnerSrc] = useState<
-        { name: string; src: string } | null | undefined
-    >(null);
-    const [postImgSrc, setPostImgSrc] = useState("");
+    const { details, isLoading } = usePostDetails(id);
 
     const handleContact = () => {
         console.log("go to owner");
     };
 
-    useEffect(() => {
-        const getPetDetails = async () => {
-            const postResponse = await api.get(`/post/${id}`);
-            console.log(postResponse.data);
-            setPetDetails(postResponse.data);
-            setPostImgSrc(
-                `${process.env.REACT_APP_IMG_PATH}${postResponse.data?.image}`
-            );
-
-            const postOwnerResponse = await api.get(
-                `/user/${postResponse.data?.userId}`
-            );
-            const postOwner = postOwnerResponse.data.user;
-            console.log(postOwnerResponse.data);
-            setPostOwnerSrc({
-                src: `${process.env.REACT_APP_IMG_PATH}${postOwner?.profileImg}`,
-                name: postOwner.name,
-            });
-        };
-        getPetDetails();
-    }, [id]);
+    if (isLoading) return <Spinner />;
 
     return (
         <PageWrapper title="Pet Profile">
@@ -62,22 +40,38 @@ const PetProfilePage: React.FC<IProps> = () => {
                 <BackButton path={`/dashboard/home`} />
 
                 <PetLeft>
-                    <img src={postImgSrc} alt="" />
+                    <Image
+                        cloudName={process.env.REACT_APP_CLOUDINARY_NAME}
+                        publicId={details?.post?.image}
+                        width="350"
+                        height="350"
+                    >
+                        <Placeholder type="pixelated" />
+                    </Image>
                     <PetBottom>
-                        <img src={postOwnerSrc?.src} alt="" />
-                        <h4>{postOwnerSrc?.name}</h4>
+                        <Image
+                            cloudName={process.env.REACT_APP_CLOUDINARY_NAME}
+                            publicId={details?.user?.profileImg}
+                            radius="max"
+                            width="40"
+                            height="40"
+                        />{" "}
+                        <h4>{details?.user?.name}</h4>
                     </PetBottom>
                 </PetLeft>
                 <PetRight>
-                    <h4>{petDetails?.name}</h4>
+                    <h4>{details?.post?.name}</h4>
+                    <h5>{details?.post?.breed}</h5>
                     <PetLocation>
-                        <h6>{petDetails?.location}</h6>
+                        <h6>{details?.post?.location}</h6>
                         <h6>
-                            {petDetails && formatDate(petDetails?.createdAt)}
+                            {details && formatDate(details?.post?.createdAt)}
                         </h6>
                     </PetLocation>
 
-                    <PetDescription>{petDetails?.description}</PetDescription>
+                    <PetDescription>
+                        {details?.post?.description}
+                    </PetDescription>
 
                     <PetBtn onClick={handleContact}>Contact Owner</PetBtn>
                 </PetRight>
