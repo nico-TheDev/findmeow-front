@@ -102,3 +102,16 @@ export const BackBtn = styled(CreateBtn)`
     top: 5%;
     left: 3%;
 `;
+
+export const UploadBtn = styled.label`
+    display: flex;
+    align-items: center;
+`;
+
+export const PreviewImg = styled.img`
+    width: 50px;
+    height: 50px;
+    display: block;
+    margin-right: 2rem;
+    object-fit: cover;
+`;

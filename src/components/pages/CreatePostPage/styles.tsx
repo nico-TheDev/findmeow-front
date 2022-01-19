@@ -45,5 +45,3 @@ export const RadioGroup = styled.div`
         font-family: inherit;
     }
 `;
-
-export const UploadBtn = styled.label``;
