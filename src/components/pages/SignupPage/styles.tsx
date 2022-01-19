@@ -75,6 +75,7 @@ export const LoginForm = styled.form`
 export const Btn = styled(Button)`
     width: 100%;
     font-size: 1.2rem;
+    margin-top: 1rem;
 `;
 
 export const BottomForm = styled.div`

@@ -6,7 +6,12 @@ import * as yup from "yup";
 
 import { Actions } from "types/ActionTypes";
 import { useAuth } from "contexts/AuthContext";
-import { InputField, ErrorMessages } from "components/shared/shared";
+import {
+    InputField,
+    ErrorMessages,
+    UploadBtn,
+    PreviewImg,
+} from "components/shared/shared";
 import api from "api";
 import {
     MainContainer,
@@ -15,54 +20,117 @@ import {
     Left,
     Right,
     Btn,
-    Upload,
     BackBtn,
 } from "./styles";
 import Icon from "components/shared/Icon";
-import validateEmail from "util/validateEmail";
+import placeholderImg from "assets/img/placeholder.jpg";
 import Loader from "components/Loader";
+import Popup from "components/Popup";
+
 interface IProps {}
 
 export const SignupPage: React.FC<IProps> = () => {
+    // ROUTER STATE
     const navigate = useNavigate();
+    // AUTH STATE
     const { authDispatch } = useAuth();
-    const [profileImg, setProfileImg] = useState("");
+    // DATA STATE
     const [isLoading, setIsLoading] = useState(false);
+    const [popupState, setPopupState] = useState({
+        message: "",
+        isShowing: false,
+        hasButtons: false,
+    });
 
-    const handleSubmit = async (values: FormikValues) => {
+    // FILE UPLOAD STATE
+    const [profileImg, setProfileImg] = useState("");
+    const [fileInputState, setFileInputState] = useState("");
+    const [previewSource, setPreviewSource] = useState("");
+    const [photoID, setPhotoID] = useState("");
+
+    const previewFile = (file) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+            setPreviewSource(reader.result);
+        };
+    };
+
+    const uploadImage = async (base64EncodedImage: string) => {
         try {
-            setIsLoading(true);
-            const formData = new FormData();
-
-            formData.append("email", values.email);
-            formData.append("password", values.password);
-            formData.append("name", values.name);
-            formData.append("username", values.username);
-            formData.append("location", values.location);
-            formData.append("contact", values.contact);
-            formData.append("profileImg", profileImg);
-
-            const response = await api.post("/signup", formData);
-            setIsLoading(false);
-
-            authDispatch({ type: Actions.SET_USER, payload: response.data });
-            authDispatch({
-                type: Actions.SET_TOKEN,
-                payload: {
-                    token: response.data.token,
-                    userID: response.data.userID,
-                },
+            const uploadResponse = await api.post("/api/upload", {
+                data: base64EncodedImage,
+                type: "user",
             });
-            navigate("/dashboard/home");
+
+            console.log(uploadResponse.data.asset_id);
+            setPhotoID(uploadResponse.data.asset_id);
         } catch (err) {
             console.log(err);
         }
     };
 
+    const handleSignup = async (values: FormikValues) => {
+        const response = await api.post("/signup", {
+            email: values.email,
+            password: values.password,
+            name: values.name,
+            username: values.username,
+            location: values.location,
+            contact: values.contact,
+            profileImg: photoID,
+        });
+        setIsLoading(false);
+
+        authDispatch({
+            type: Actions.SET_USER,
+            payload: response.data,
+        });
+        authDispatch({
+            type: Actions.SET_TOKEN,
+            payload: {
+                token: response.data.token,
+                userID: response.data.userID,
+            },
+        });
+        navigate("/dashboard/home");
+    };
+
+    const handleSubmit = async (values: FormikValues) => {
+        try {
+            setIsLoading(true);
+            const reader = new FileReader();
+            if (profileImg) {
+                reader.readAsDataURL(profileImg);
+                reader.onloadend = async () => {
+                    uploadImage(reader.result);
+                    handleSignup(values);
+                };
+            } else {
+                handleSignup(values);
+            }
+        } catch (err) {
+            console.log(err);
+            setPopupState({
+                isShowing: false,
+                ...popupState,
+                message: err,
+            });
+        } finally {
+            setTimeout(() => {
+                setPopupState({
+                    isShowing: false,
+                    ...popupState,
+                });
+            }, 1500);
+        }
+    };
+
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const target = e.target;
-        setProfileImg(target.files[0]);
-        console.log(target.files[0]);
+        const targetFile = e.target.files[0];
+        previewFile(targetFile);
+        setFileInputState(e.target.value);
+        setProfileImg(targetFile);
     };
 
     const SignupSchema = yup.object({
@@ -104,6 +172,11 @@ export const SignupPage: React.FC<IProps> = () => {
     return (
         <MainContainer>
             {isLoading && <Loader />}
+            <Popup
+                hasButtons={popupState.hasButtons}
+                message={popupState.message}
+                isShowing={popupState.isShowing}
+            />
             <Container>
                 <BackBtn onClick={handleBack}>
                     <Icon name="close" />
@@ -195,15 +268,20 @@ export const SignupPage: React.FC<IProps> = () => {
                                 {formik.errors.password || null}
                             </ErrorMessages>{" "}
                         </InputField>
-                        <Upload>
+                        <UploadBtn>
+                            <PreviewImg
+                                src={previewSource || placeholderImg}
+                                alt="Preview Photo"
+                            />
                             <input
                                 type="file"
                                 id="profileImg"
                                 name="profileImg"
                                 onChange={handleFileChange}
                                 accept=".png,.jpeg,.jpg"
+                                value={fileInputState}
                             />
-                        </Upload>
+                        </UploadBtn>
                         <Btn type="submit">Submit</Btn>
                     </Right>
                 </LoginForm>

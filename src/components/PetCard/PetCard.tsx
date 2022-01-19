@@ -27,7 +27,6 @@ const PetCard: React.FC<IProps> = ({ details, type }) => {
         const getPostOwner = async () => {
             const response = await api.get(`/user/${details.userId}`);
             const postOwner = response.data.user;
-            console.log(response.data);
             setPostOwnerSrc(
                 `${process.env.REACT_APP_IMG_PATH}${postOwner?.profileImg}`
             );
