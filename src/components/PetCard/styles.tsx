@@ -58,4 +58,5 @@ export const CardLoader = styled.div`
     height: 320px;
     border-radius: 1rem;
     animation: ${blink} 1s linear infinite;
+    margin: 1rem;
 `;

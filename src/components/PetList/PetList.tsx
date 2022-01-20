@@ -8,19 +8,26 @@ import emptyImg from "assets/img/empty.png";
 interface IProps {
     collection: PetDetails[];
     type?: string;
+    additionalClass?: string;
+    defaultColumns?: number;
 }
 
-const breakpointColumnsObj = {
-    default: 3,
-    700: 2,
-    500: 1,
-};
+const PetList: React.FC<IProps> = ({
+    collection,
+    type,
+    additionalClass,
+    defaultColumns,
+}) => {
+    const breakpointColumnsObj = {
+        default: defaultColumns || 3,
+        700: 2,
+        500: 1,
+    };
 
-const PetList: React.FC<IProps> = ({ collection, type }) => {
     return (
         <Masonry
             breakpointCols={breakpointColumnsObj}
-            className="my-masonry-grid"
+            className={`my-masonry-grid ${additionalClass}`}
             columnClassName="my-masonry-grid_column"
         >
             {collection.length !== 0 ? (

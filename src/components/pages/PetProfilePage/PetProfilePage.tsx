@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Image, Placeholder } from "cloudinary-react";
 
 import api from "api";
@@ -26,10 +26,14 @@ interface IProps {
 
 const PetProfilePage: React.FC<IProps> = () => {
     const { id } = useParams();
+    const navigate = useNavigate();
     const { details, isLoading } = usePostDetails(id);
 
     const handleContact = () => {
-        console.log("go to owner");
+        console.log(details);
+        navigate(`/dashboard/profile/${details.post.userId}`, {
+            state: details,
+        });
     };
 
     if (isLoading) return <Spinner />;

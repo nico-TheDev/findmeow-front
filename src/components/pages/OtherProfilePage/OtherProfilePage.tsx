@@ -1,24 +1,26 @@
 // @ts-nocheck
 
 import React, { useEffect, useState } from "react";
-import Masonry from "react-masonry-css";
 import { Image } from "cloudinary-react";
 
 import PageWrapper from "components/shared/PageWrapper";
 import { ProfileCard, ProfileMain, ProfilePosts, PostList } from "./styles";
 import PetList from "components/PetList";
 import { useAuth } from "contexts/AuthContext";
-import api from "api";
-import { PetDetails } from "types/ActionTypes";
+
 import usePostCollection from "hooks/usePostCollectiion";
 import Spinner from "components/Spinner";
+import { useLocation, useParams } from "react-router-dom";
 
 interface IProps {}
 
-const ProfilePage: React.FC<IProps> = () => {
+const OtherProfilePage: React.FC<IProps> = () => {
     const { authState } = useAuth();
-    const { user, userID } = authState;
-    const { collection, isLoading } = usePostCollection(`/post/user/${userID}`);
+    const { id } = useParams();
+    const location = useLocation();
+    const { post, user } = location.state;
+
+    const { collection, isLoading } = usePostCollection(`/post/user/${id}`);
 
     if (isLoading) return <Spinner />;
 
@@ -39,7 +41,7 @@ const ProfilePage: React.FC<IProps> = () => {
                     <h4>{user?.contact}</h4>
                 </ProfileCard>
                 <ProfilePosts>
-                    <h2>My Posts</h2>
+                    <h2>{user?.name} Posts</h2>
                     <PetList
                         collection={collection}
                         additionalClass="fullWidth"
@@ -51,4 +53,4 @@ const ProfilePage: React.FC<IProps> = () => {
     );
 };
 
-export default ProfilePage;
+export default OtherProfilePage;

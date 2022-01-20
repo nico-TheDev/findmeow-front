@@ -7,6 +7,8 @@ export const Container = styled.div`
     min-height: 100vh;
     padding: 13vh 0 2rem 0;
     position: relative;
+    display: grid;
+    place-items: center;
     h1 {
         width: 80%;
         margin: 0 auto;

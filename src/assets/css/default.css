@@ -55,16 +55,15 @@ li {
     display: -ms-flexbox; /* Not needed if autoprefixing */
     display: flex;
     margin-left: -30px; /* gutter size offset */
-    width: auto;
-    height: 70vh;
+    min-height: 50vh;
+    max-height: 70vh;
     width: 70%;
-    margin: 1.5rem auto 0 auto;
     overflow-y: scroll;
     position: relative;
     padding: 2rem;
 }
 .my-masonry-grid_column {
-    padding-left: 30px; /* gutter size */
+    padding-left: 20px; /* gutter size */
     background-clip: padding-box;
 }
 
@@ -93,4 +92,8 @@ li {
 
 .custom-column > a:hover {
     transform: none;
+}
+
+.fullWidth {
+    width: 100%;
 }
