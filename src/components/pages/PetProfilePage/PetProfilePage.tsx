@@ -19,6 +19,7 @@ import formatDate from "util/formatDate";
 import BackButton from "components/shared/BackButton";
 import usePostDetails from "hooks/usePostDetails";
 import Spinner from "components/Spinner";
+import { useAuth } from "contexts/AuthContext";
 
 interface IProps {
     type?: string;
@@ -27,6 +28,9 @@ interface IProps {
 const PetProfilePage: React.FC<IProps> = () => {
     const { id } = useParams();
     const navigate = useNavigate();
+
+    const { authState } = useAuth();
+    const { userID: currentUserID } = authState;
     const { details, isLoading } = usePostDetails(id);
 
     const handleContact = () => {
@@ -77,7 +81,9 @@ const PetProfilePage: React.FC<IProps> = () => {
                         {details?.post?.description}
                     </PetDescription>
 
-                    <PetBtn onClick={handleContact}>Contact Owner</PetBtn>
+                    {currentUserID !== details.post.userId && (
+                        <PetBtn onClick={handleContact}>Contact Owner</PetBtn>
+                    )}
                 </PetRight>
             </PetMain>
         </PageWrapper>

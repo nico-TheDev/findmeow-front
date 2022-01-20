@@ -160,7 +160,8 @@ const CreatePostPage: React.FC<IProps> = () => {
                     yesFunc={() =>
                         setPopupState({
                             isShowing: false,
-                            ...popupState,
+                            message: "",
+                            hasButtons: false,
                         })
                     }
                     noFunc={handleNo}
