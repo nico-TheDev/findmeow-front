@@ -108,12 +108,15 @@ export const BackBtn = styled(CreateBtn)`
 export const UploadBtn = styled.label`
     display: flex;
     align-items: center;
+
+    input {
+        margin-left: 2rem;
+    }
 `;
 
 export const PreviewImg = styled.img`
     width: 50px;
     height: 50px;
     display: block;
-    margin-right: 2rem;
     object-fit: cover;
 `;

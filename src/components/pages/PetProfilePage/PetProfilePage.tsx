@@ -1,9 +1,8 @@
 // @ts-nocheck
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Image, Placeholder } from "cloudinary-react";
 
-import api from "api";
 import PageWrapper from "components/shared/PageWrapper";
 import {
     PetMain,
@@ -14,7 +13,6 @@ import {
     PetBtn,
     PetDescription,
 } from "./styles";
-import { PetDetails } from "types/ActionTypes";
 import formatDate from "util/formatDate";
 import BackButton from "components/shared/BackButton";
 import usePostDetails from "hooks/usePostDetails";
@@ -34,10 +32,22 @@ const PetProfilePage: React.FC<IProps> = () => {
     const { details, isLoading } = usePostDetails(id);
 
     const handleContact = () => {
-        console.log(details);
-        navigate(`/dashboard/profile/${details.post.userId}`, {
+        navigate(`/dashboard/profile/${details?.post.userId}`, {
             state: details,
         });
+    };
+
+    const handleEdit = () => {
+        navigate(`/dashboard/edit_post`, {
+            state: details,
+        });
+    };
+
+    const getType = () => {
+        console.log(details);
+        const postType = details?.post.type;
+        if (postType === "adoption") return "adopt";
+        if (postType === "missing") return "find";
     };
 
     if (isLoading) return <Spinner />;
@@ -45,7 +55,9 @@ const PetProfilePage: React.FC<IProps> = () => {
     return (
         <PageWrapper title="Pet Profile">
             <PetMain>
-                <BackButton path={`/dashboard/home`} />
+                <BackButton
+                    path={`/dashboard/${details.post ? getType() : "home"}`}
+                />
 
                 <PetLeft>
                     <Image
@@ -81,8 +93,10 @@ const PetProfilePage: React.FC<IProps> = () => {
                         {details?.post?.description}
                     </PetDescription>
 
-                    {currentUserID !== details.post.userId && (
+                    {currentUserID !== details.post.userId ? (
                         <PetBtn onClick={handleContact}>Contact Owner</PetBtn>
+                    ) : (
+                        <PetBtn onClick={handleEdit}>Edit Post</PetBtn>
                     )}
                 </PetRight>
             </PetMain>

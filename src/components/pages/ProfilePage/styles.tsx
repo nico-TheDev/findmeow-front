@@ -13,6 +13,8 @@ export const ProfileCard = styled.div`
     padding: 1.5rem;
     border-radius: 1rem;
     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.25);
+    display: grid;
+    align-content: center;
 
     img {
         width: 250px;
