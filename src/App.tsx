@@ -16,6 +16,7 @@ import NotFoundPage from "components/pages/NotFoundPage";
 import PetProfilePage from "components/pages/PetProfilePage";
 import SignupPage from "components/pages/SignupPage";
 import OtherProfilePage from "components/pages/OtherProfilePage";
+import EditPostPage from "components/pages/EditPostPage";
 
 function App() {
     const { authState } = useAuth();
@@ -37,6 +38,7 @@ function App() {
                     <Route path="profile" element={<ProfilePage />} />
                     <Route path="profile/:id" element={<OtherProfilePage />} />
                     <Route path="post/create" element={<CreatePostPage />} />
+                    <Route path="edit_post" element={<EditPostPage />} />
                     <Route path="*" element={<NotFoundPage />} />
                 </Route>
             </Routes>
