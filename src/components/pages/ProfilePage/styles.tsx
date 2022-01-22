@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Button } from "components/shared/shared";
 
 export const ProfileMain = styled.div`
     width: 80%;
@@ -8,6 +9,7 @@ export const ProfileMain = styled.div`
 `;
 
 export const ProfileCard = styled.div`
+    position: relative;
     margin-top: 2rem;
     background: white;
     padding: 1.5rem;
@@ -49,4 +51,11 @@ export const PostList = styled.div`
     width: 100%;
     margin-top: 1rem;
     padding: 1rem;
+`;
+
+export const EditBtn = styled(Button)`
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    margin: 0;
 `;

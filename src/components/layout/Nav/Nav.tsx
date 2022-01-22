@@ -1,5 +1,5 @@
 //@ts-nocheck
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { Actions } from "types/ActionTypes";
@@ -22,10 +22,7 @@ const Nav: React.FC<IProps> = () => {
     const navigate = useNavigate();
     const { authState, authDispatch } = useAuth();
     const { user, token } = authState;
-
-    const imgPath = user?.profileImg;
-    const avatarSrc = `${process.env.REACT_APP_IMG_PATH}${imgPath}`;
-    console.log(avatarSrc);
+    const [currentUser, setCurrentUser] = useState(user);
 
     const handleLogout = () => {
         authDispatch({ type: Actions.LOGOUT_USER });
@@ -35,6 +32,10 @@ const Nav: React.FC<IProps> = () => {
     const handleProfile = () => {
         navigate("/dashboard/profile");
     };
+
+    useEffect(() => {
+        setCurrentUser(user);
+    }, [user]);
 
     return (
         <NavContainer>
@@ -57,7 +58,7 @@ const Nav: React.FC<IProps> = () => {
                     <NavItem className="userPhoto">
                         <Image
                             cloudName={process.env.REACT_APP_CLOUDINARY_NAME}
-                            publicId={user?.profileImg}
+                            publicId={currentUser?.profileImg}
                             radius="max"
                             width="40"
                             height="40"
