@@ -12,6 +12,7 @@ import {
     PetRight,
     PetBtn,
     PetDescription,
+    PetBtnHolder,
 } from "./styles";
 import formatDate from "util/formatDate";
 import BackButton from "components/shared/BackButton";
@@ -42,6 +43,8 @@ const PetProfilePage: React.FC<IProps> = () => {
             state: details,
         });
     };
+
+    const handleCompleted = () => {};
 
     const getType = () => {
         console.log(details);
@@ -96,7 +99,12 @@ const PetProfilePage: React.FC<IProps> = () => {
                     {currentUserID !== details.post.userId ? (
                         <PetBtn onClick={handleContact}>Contact Owner</PetBtn>
                     ) : (
-                        <PetBtn onClick={handleEdit}>Edit Post</PetBtn>
+                        <PetBtnHolder>
+                            <PetBtn onClick={handleEdit}>Edit Post</PetBtn>
+                            <PetBtn onClick={handleCompleted}>
+                                Mark as completed
+                            </PetBtn>
+                        </PetBtnHolder>
                     )}
                 </PetRight>
             </PetMain>

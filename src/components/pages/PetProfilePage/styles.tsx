@@ -78,3 +78,9 @@ export const PetDescription = styled.p`
     max-height: 200px;
     overflow-y: scroll;
 `;
+
+export const PetBtnHolder = styled.div`
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+`;
