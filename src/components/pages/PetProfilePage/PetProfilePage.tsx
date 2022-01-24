@@ -13,6 +13,7 @@ import {
     PetBtn,
     PetDescription,
     PetBtnHolder,
+    PetHead,
 } from "./styles";
 import formatDate from "util/formatDate";
 import BackButton from "components/shared/BackButton";
@@ -47,10 +48,12 @@ const PetProfilePage: React.FC<IProps> = () => {
     const handleCompleted = () => {};
 
     const getType = () => {
-        console.log(details);
         const postType = details?.post.type;
         if (postType === "adoption") return "adopt";
         if (postType === "missing") return "find";
+        else {
+            return postType;
+        }
     };
 
     if (isLoading) return <Spinner />;
@@ -58,9 +61,12 @@ const PetProfilePage: React.FC<IProps> = () => {
     return (
         <PageWrapper title="Pet Profile">
             <PetMain>
-                <BackButton
-                    path={`/dashboard/${details.post ? getType() : "home"}`}
-                />
+                <PetHead>
+                    <BackButton
+                        path={`/dashboard/${details.post ? getType() : "home"}`}
+                    />
+                    <h2>{details?.post.type}</h2>
+                </PetHead>
 
                 <PetLeft>
                     <Image
@@ -96,16 +102,23 @@ const PetProfilePage: React.FC<IProps> = () => {
                         {details?.post?.description}
                     </PetDescription>
 
-                    {currentUserID !== details.post.userId ? (
-                        <PetBtn onClick={handleContact}>Contact Owner</PetBtn>
-                    ) : (
-                        <PetBtnHolder>
-                            <PetBtn onClick={handleEdit}>Edit Post</PetBtn>
-                            <PetBtn onClick={handleCompleted}>
-                                Mark as completed
+                    <PetBtnHolder>
+                        {currentUserID !== details.post.userId ? (
+                            <PetBtn onClick={handleContact}>
+                                Owner Profile
                             </PetBtn>
-                        </PetBtnHolder>
-                    )}
+                        ) : (
+                            <>
+                                <PetBtn onClick={handleEdit}>Edit Post</PetBtn>
+                                <PetBtn
+                                    onClick={handleCompleted}
+                                    outlined={true}
+                                >
+                                    Mark as completed
+                                </PetBtn>
+                            </>
+                        )}
+                    </PetBtnHolder>
                 </PetRight>
             </PetMain>
         </PageWrapper>

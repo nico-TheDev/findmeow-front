@@ -18,15 +18,26 @@ export const Container = styled.div`
 `;
 
 export const Button = styled.button`
-    background-color: ${({ theme }) => theme.primary.main};
+    background-color: ${({ theme, outlined }) =>
+        outlined ? "white" : theme.primary.main};
     border-radius: 5rem;
     padding: 0.8em 2em;
-    color: white;
+    color: ${({ theme, outlined }) =>
+        outlined ? theme.primary.main : "white"};
     text-transform: uppercase;
     font-size: 0.8rem;
     margin-right: 2rem;
+    border: 2px solid ${({ theme }) => theme.primary.main};
     &:hover {
-        background-color: ${({ theme }) => theme.primary.light};
+        background-color: ${({ theme, outlined }) =>
+            outlined ? theme.primary.main : "white"};
+        color: ${({ theme, outlined }) =>
+            outlined ? "white" : theme.primary.main};
+    }
+
+    svg {
+        fill: currentColor;
+        transition: 1ms;
     }
 `;
 
@@ -92,7 +103,6 @@ export const CreateBtn = styled(Button)`
     }
 
     svg {
-        fill: white;
         width: 2rem;
         height: 2rem;
     }
@@ -103,6 +113,11 @@ export const BackBtn = styled(CreateBtn)`
     right: inherit;
     top: 5%;
     left: 3%;
+
+    svg {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
 `;
 
 export const UploadBtn = styled.label`

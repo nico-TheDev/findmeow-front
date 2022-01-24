@@ -28,6 +28,9 @@ const PetCard: React.FC<IProps> = ({ details, type }) => {
     const getType = (type: string) => {
         if (type === "adoption") return "adopt";
         if (type === "missing") return "find";
+        else {
+            return type;
+        }
     };
 
     if (isLoading) return <CardLoader />;
