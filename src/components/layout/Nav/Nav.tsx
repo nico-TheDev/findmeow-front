@@ -37,7 +37,6 @@ const Nav: React.FC<IProps> = () => {
     };
 
     useEffect(() => {
-        console.log(currentUser);
         setCurrentLocation(location.pathname);
     }, [location.pathname]);
 

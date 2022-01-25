@@ -13,6 +13,7 @@ export const ProfileCard = styled.div`
     margin-top: 2rem;
     background: white;
     padding: 1.5rem;
+    padding-top: 3rem;
     border-radius: 1rem;
     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.25);
     display: grid;

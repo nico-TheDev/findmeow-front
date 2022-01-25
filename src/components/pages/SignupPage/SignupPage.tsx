@@ -104,7 +104,6 @@ export const SignupPage: React.FC<IProps> = () => {
             } else {
                 setPopupState({
                     isShowing: true,
-                    ...popupState,
                     message: "You need a profile picture",
                 });
             }

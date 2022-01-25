@@ -119,6 +119,12 @@ const EditProfilePage: React.FC<IProps> = () => {
                         hasButtons: false,
                     });
                 };
+            } else {
+                setPopupState({
+                    isShowing: true,
+                    message: "You need a profile picture",
+                    hasButtons: false,
+                });
             }
         } catch (err) {
             setPopupState({
@@ -126,6 +132,13 @@ const EditProfilePage: React.FC<IProps> = () => {
                 message: "Something Went Wrong",
                 hasButtons: false,
             });
+        } finally {
+            setTimeout(() => {
+                setPopupState({
+                    isShowing: false,
+                    ...popupState,
+                });
+            }, 1500);
         }
     };
 
@@ -228,7 +241,7 @@ const EditProfilePage: React.FC<IProps> = () => {
                             />
                         </InputField>
 
-                        <PetButton disabled={!previewSource}>SUBMIT</PetButton>
+                        <PetButton>SUBMIT</PetButton>
                     </PetForm>
                 </PetMain>
             </PageWrapper>

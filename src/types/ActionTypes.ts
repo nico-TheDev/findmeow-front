@@ -49,4 +49,5 @@ export interface PetDetails {
     description: string;
     userId: string;
     type: string;
+    isCompleted: boolean;
 }

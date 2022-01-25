@@ -1,8 +1,9 @@
 // @ts-nocheck
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Image, Placeholder } from "cloudinary-react";
 
+import api from "api";
 import PageWrapper from "components/shared/PageWrapper";
 import {
     PetMain,
@@ -32,6 +33,7 @@ const PetProfilePage: React.FC<IProps> = () => {
     const { authState } = useAuth();
     const { userID: currentUserID } = authState;
     const { details, isLoading } = usePostDetails(id);
+    const [postStatus, setPostStatus] = useState(details?.post.isCompleted);
 
     const handleContact = () => {
         navigate(`/dashboard/profile/${details?.post.userId}`, {
@@ -45,7 +47,19 @@ const PetProfilePage: React.FC<IProps> = () => {
         });
     };
 
-    const handleCompleted = () => {};
+    useEffect(() => {
+        if (details) {
+            setPostStatus(details.post.isCompleted);
+        }
+    }, [details]);
+
+    const handleCompleted = async () => {
+        const response = await api.put(`/post/like/${id}`, {
+            userId: currentUserID,
+        });
+        setPostStatus(response.data.updatedPost);
+        console.log(response.data.updatedPost);
+    };
 
     const getType = () => {
         const postType = details?.post.type;
@@ -114,7 +128,8 @@ const PetProfilePage: React.FC<IProps> = () => {
                                     onClick={handleCompleted}
                                     outlined={true}
                                 >
-                                    Mark as completed
+                                    Mark as{" "}
+                                    {postStatus ? "Missing" : "Completed"}
                                 </PetBtn>
                             </>
                         )}

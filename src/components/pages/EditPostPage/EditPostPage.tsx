@@ -114,6 +114,12 @@ const EditPostPage: React.FC<IProps> = () => {
                         hasButtons: false,
                     });
                 };
+            } else {
+                setPopupState({
+                    isShowing: true,
+                    message: "You need a profile picture",
+                    hasButtons: false,
+                });
             }
         } catch (err) {
             setPopupState({
@@ -123,7 +129,10 @@ const EditPostPage: React.FC<IProps> = () => {
             });
         } finally {
             setTimeout(() => {
-                navigate("/dashboard/profile");
+                setPopupState({
+                    isShowing: false,
+                    ...popupState,
+                });
             }, 1500);
         }
     };
@@ -244,7 +253,7 @@ const EditPostPage: React.FC<IProps> = () => {
                                 value={fileInputState}
                             />
                         </UploadBtn>
-                        <PetButton disabled={!previewSource}>SUBMIT</PetButton>
+                        <PetButton>SUBMIT</PetButton>
                     </PetForm>
                 </PetMain>
             </PageWrapper>

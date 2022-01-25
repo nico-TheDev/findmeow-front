@@ -99,6 +99,7 @@ export const CreateBtn = styled(Button)`
     z-index: 200;
     display: flex;
     align-items: center;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.5);
 
     span {
         font-weight: bold;

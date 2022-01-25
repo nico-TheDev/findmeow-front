@@ -33,6 +33,18 @@ const PetCard: React.FC<IProps> = ({ details, type }) => {
         }
     };
 
+    const displayHead = () => {
+        const isInProfileAndCompleted =
+            details.isCompleted && pathname.includes("profile");
+
+        if (pathname.includes("home")) {
+            return <CardType type={type}>{type.toUpperCase()}</CardType>;
+        }
+        if (isInProfileAndCompleted) {
+            return <CardType type="missing">COMPLETED</CardType>;
+        }
+    };
+
     if (isLoading) return <CardLoader />;
 
     return (
@@ -40,9 +52,7 @@ const PetCard: React.FC<IProps> = ({ details, type }) => {
             to={`/dashboard/${getType(type)}/${details._id}`}
             style={{ textDecoration: "none", display: "block" }}
         >
-            {pathname.includes("home") && (
-                <CardType type={type}>{type.toUpperCase()}</CardType>
-            )}{" "}
+            {displayHead()}
             <CardHead>
                 <Image
                     cloudName={process.env.REACT_APP_CLOUDINARY_NAME}
