@@ -1,3 +1,4 @@
+// @ts-nocheck
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
@@ -62,6 +63,8 @@ export const NavItem = styled.li`
         font-size: 1.2rem;
         font-weight: 300;
         /* text-transform: uppercase; */
+        color: ${({ isCurrent, theme }) =>
+            isCurrent ? theme.primary.main : "inherit"};
 
         &:hover {
             text-decoration: none;

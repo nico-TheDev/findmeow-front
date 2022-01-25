@@ -72,7 +72,7 @@ export const PetBottom = styled.div`
 export const PetRight = styled.div`
     display: grid;
     gap: 1rem;
-    align-content: start;
+    align-content: space-between;
     /* padding: 2rem; */
     height: 100%;
     h4 {

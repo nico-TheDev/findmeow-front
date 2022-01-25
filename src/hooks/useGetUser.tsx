@@ -7,7 +7,7 @@ const useGetUser = (userId: string) => {
     const { data, error } = useSWR(`/user/${userId}`, fetcher);
 
     return {
-        owner: data,
+        user: data,
         isError: error,
         isLoading: !data && !error,
     };

@@ -10,25 +10,23 @@ import PetList from "components/PetList";
 import { useAuth } from "contexts/AuthContext";
 import usePostCollection from "hooks/usePostCollectiion";
 import Spinner from "components/Spinner";
+import useGetUser from "hooks/useGetUser";
 
 interface IProps {}
 
 const ProfilePage: React.FC<IProps> = () => {
     const navigate = useNavigate();
     const { authState } = useAuth();
-    const { user, userID } = authState;
-    const [currentUser, setCurrentUser] = useState(user);
+    const { userID } = authState;
+    const { user: currentUser, isLoading: isUserLoaded } = useGetUser(userID);
     const { collection, isLoading } = usePostCollection(`/post/user/${userID}`);
 
     const handleEdit = () => {
-        navigate("/dashboard/edit_profile", { state: user });
+        console.log(currentUser);
+        navigate("/dashboard/edit_profile", { state: { user: currentUser } });
     };
 
-    useEffect(() => {
-        setCurrentUser(user);
-    }, [user]);
-
-    if (isLoading) return <Spinner />;
+    if (isLoading || isUserLoaded) return <Spinner />;
 
     return (
         <PageWrapper title="Profile">

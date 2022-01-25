@@ -20,7 +20,7 @@ const EditProfilePage: React.FC<IProps> = () => {
     // ROUTER STUFF
     const location = useLocation();
     const navigate = useNavigate();
-    const user = location.state;
+    const { user } = location.state;
 
     // LOADER STATE
     const [popupState, setPopupState] = useState({
@@ -73,19 +73,18 @@ const EditProfilePage: React.FC<IProps> = () => {
                 reader.readAsDataURL(postImg);
                 reader.onloadend = async () => {
                     const targetID = await uploadImage(reader.result);
-                    const updateResponse = await api.put(`/user/${user._id}`, {
+                    const updateResponse = await api.put(`/user/${user.id}`, {
                         editedProfile: {
                             name: values.name,
                             location: values.location,
                             contact: values.contact,
                             email: values.email,
-                            id: user._id,
+                            id: user.id,
                             profileImg: targetID ? targetID : user.profileImg,
                         },
                         prevPublicID: user.profileImg,
                     });
                     setIsLoading(false);
-                    console.log("UPDATE HERE", updateResponse);
                     authDispatch({
                         type: Actions.SET_USER,
                         payload: {
@@ -103,7 +102,7 @@ const EditProfilePage: React.FC<IProps> = () => {
                             ...popupState,
                         });
 
-                        navigate("/dashboard/profile");
+                        navigate("/dashboard/home");
                     }, 2000);
 
                     setFileInputState("");
@@ -127,10 +126,6 @@ const EditProfilePage: React.FC<IProps> = () => {
                 message: "Something Went Wrong",
                 hasButtons: false,
             });
-        } finally {
-            setTimeout(() => {
-                navigate("/dashboard/profile");
-            }, 1500);
         }
     };
 
