@@ -126,7 +126,7 @@ export const MobileMenu = styled.ul`
     font-size: 1.5rem;
     transform: ${({ isOpen }) =>
         isOpen ? "translateX(0)" : "translateX(10000%)"};
-    transition: 1s;
+    transition: 500ms;
 `;
 
 export const MobileItem = styled(NavItem)`

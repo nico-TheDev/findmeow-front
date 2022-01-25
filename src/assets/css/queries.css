@@ -1,0 +1,18 @@
+/* 1200px */
+@media only screen and (max-width: 1200px) {
+    .my-masonry-grid {
+        width: 90%;
+    }
+}
+
+/* 800px */
+@media only screen and (max-width: 800px) {
+}
+
+/* 600px */
+@media only screen and (max-width: 600px) {
+}
+
+/* 450px */
+@media only screen and (max-width: 450px) {
+}

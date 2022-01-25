@@ -1,6 +1,7 @@
 //@ts-nocheck
 
 import styled from "styled-components";
+import respondTo from "util/respondTo";
 
 export const MainContainer = styled.header`
     min-height: 100vh;
@@ -32,19 +33,28 @@ export const HeroLeft = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding-left: 3rem;
 `;
 
 export const HeroRight = styled.div`
     flex: 1;
     display: flex;
     justify-content: center;
+
+    ${respondTo.md`
+        display:none;    
+
+    `}
 `;
 
 export const Logo = styled.img`
     width: 250px;
     display: block;
     margin-bottom: 5rem;
+
+    ${respondTo.sm`
+        width:200px;
+        margin-bottom:2.5rem;
+    `}
 `;
 
 export const HeroImg = styled.img`
@@ -56,6 +66,11 @@ export const LoginForm = styled.form`
     margin: 0 auto;
     display: grid;
     gap: 0.5rem;
+    ${respondTo.sm`
+        width:90%;
+        gap:1.2rem;
+    `}
+
     h2 {
         color: ${({ theme }) => theme.primary.dark};
         font-weight: 400;
@@ -65,6 +80,21 @@ export const LoginForm = styled.form`
 
 export const BottomForm = styled.div`
     margin-top: 1.5rem;
+    ${respondTo.md`
+        display:flex;    
+        flex-direction:column;
+        margin:0;
+
+        button {
+            width:100%;
+            margin-bottom:1rem;
+        }
+
+        span{
+            text-align:center;
+        }
+
+    `}
     span {
         font-size: 0.8rem;
         font-weight: 300;

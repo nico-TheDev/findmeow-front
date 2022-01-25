@@ -7,6 +7,7 @@ import { AuthContextProvider } from "contexts/AuthContext";
 
 import theme from "theme/ThemeProvider";
 import "./assets/css/default.css";
+import "./assets/css/queries.css";
 import App from "./App";
 
 ReactDOM.render(

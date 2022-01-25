@@ -1,6 +1,11 @@
 // @ts-nocheck
 import { css } from "styled-components";
-const breakpoints = {
+const breakpoints: {
+    cp: string;
+    sm: string;
+    md: string;
+    lg: string;
+} = {
     cp: "450px",
     sm: "600px",
     md: "800px",
