@@ -228,7 +228,7 @@ const EditProfilePage: React.FC<IProps> = () => {
                             />
                         </InputField>
 
-                        <PetButton>SUBMIT</PetButton>
+                        <PetButton disabled={!previewSource}>SUBMIT</PetButton>
                     </PetForm>
                 </PetMain>
             </PageWrapper>

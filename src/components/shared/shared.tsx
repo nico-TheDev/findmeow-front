@@ -39,6 +39,11 @@ export const Button = styled.button`
         fill: currentColor;
         transition: 1ms;
     }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: no-drop;
+    }
 `;
 
 export const PageBG = styled.img`

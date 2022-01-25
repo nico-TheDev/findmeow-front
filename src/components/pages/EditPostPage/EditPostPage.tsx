@@ -244,7 +244,7 @@ const EditPostPage: React.FC<IProps> = () => {
                                 value={fileInputState}
                             />
                         </UploadBtn>
-                        <PetButton>SUBMIT</PetButton>
+                        <PetButton disabled={!previewSource}>SUBMIT</PetButton>
                     </PetForm>
                 </PetMain>
             </PageWrapper>
