@@ -1,6 +1,7 @@
 // @ts-nocheck
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import respondTo from "util/respondTo";
 
 export const NavContainer = styled.nav`
     position: absolute;
@@ -55,6 +56,9 @@ export const NavList = styled.ul`
             transform: scaleY(1);
         }
     }
+
+    ${respondTo.lg`
+        display:none;`}
 `;
 
 export const NavItem = styled.li`
@@ -62,7 +66,6 @@ export const NavItem = styled.li`
     a {
         font-size: 1.2rem;
         font-weight: 300;
-        /* text-transform: uppercase; */
         color: ${({ isCurrent, theme }) =>
             isCurrent ? theme.primary.main : "inherit"};
 
@@ -94,6 +97,54 @@ export const AccountOptions = styled.div<{ token: string | null | undefined }>`
 
         &:hover {
             background-color: ${({ theme }) => theme.primary.main};
+            color: white;
+        }
+    }
+`;
+
+export const MobileNavBtn = styled.button`
+    display: none;
+    align-items: center;
+    svg {
+        width: 2rem;
+        height: 2rem;
+        fill: currentColor;
+    }
+    ${respondTo.lg`
+        display:flex;
+
+        `}
+`;
+
+export const MobileMenu = styled.ul`
+    position: absolute;
+    width: 100%;
+    top: 10vh;
+    left: 0;
+    background: white;
+    display: grid;
+    font-size: 1.5rem;
+    transform: ${({ isOpen }) =>
+        isOpen ? "translateX(0)" : "translateX(10000%)"};
+    transition: 1s;
+`;
+
+export const MobileItem = styled(NavItem)`
+    button {
+        font-size: 1.2rem;
+        font-weight: inherit;
+        font-family: inherit;
+    }
+
+    a,
+    button {
+        width: 100%;
+        display: block;
+        height: 100%;
+        padding: 0.5rem;
+        text-align: left;
+        &:hover {
+            background: ${({ theme }) => theme.primary.main};
             color: white;
         }
     }

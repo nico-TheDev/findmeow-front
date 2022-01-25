@@ -10,12 +10,16 @@ import {
     NavLogo,
     NavList,
     NavItem,
-    UserImg,
+    MobileNavBtn,
+    MobileMenu,
+    MobileItem,
     AccountOptions,
 } from "./styles";
 import { useAuth } from "contexts/AuthContext";
 import navLogo from "assets/img/findmeow-logo.png";
 import useGetUser from "hooks/useGetUser";
+import Icon from "components/shared/Icon";
+import { useNav } from "contexts/NavContext";
 
 interface IProps {}
 
@@ -26,6 +30,7 @@ const Nav: React.FC<IProps> = () => {
     const { authState, authDispatch } = useAuth();
     const { userID, token } = authState;
     const { user: currentUser, isLoading: isUserLoaded } = useGetUser(userID);
+    const { isNavOpen, setIsNavOpen } = useNav();
 
     const handleLogout = () => {
         authDispatch({ type: Actions.LOGOUT_USER });
@@ -34,6 +39,10 @@ const Nav: React.FC<IProps> = () => {
 
     const handleProfile = () => {
         navigate("/dashboard/profile");
+    };
+
+    const handleNavOpen = () => {
+        setIsNavOpen(!isNavOpen);
     };
 
     useEffect(() => {
@@ -74,6 +83,29 @@ const Nav: React.FC<IProps> = () => {
                         </AccountOptions>
                     </NavItem>
                 </NavList>
+
+                <MobileNavBtn onClick={handleNavOpen}>
+                    <Icon name={isNavOpen ? "close" : "menu"} />
+                </MobileNavBtn>
+
+                {/* MOBILE MENU */}
+                <MobileMenu isOpen={isNavOpen}>
+                    <MobileItem isCurrent={currentLocation.includes("home")}>
+                        <Link to="/dashboard/home">Home</Link>
+                    </MobileItem>
+                    <MobileItem isCurrent={currentLocation.includes("find")}>
+                        <Link to="/dashboard/find">Find a Pet</Link>
+                    </MobileItem>
+                    <MobileItem isCurrent={currentLocation.includes("adopt")}>
+                        <Link to="/dashboard/adopt">Adopt a Pet</Link>
+                    </MobileItem>
+                    <MobileItem>
+                        <button onClick={handleProfile}>Profile</button>
+                    </MobileItem>
+                    <MobileItem>
+                        <button onClick={handleLogout}>Logout</button>
+                    </MobileItem>
+                </MobileMenu>
             </NavMain>
         </NavContainer>
     );
