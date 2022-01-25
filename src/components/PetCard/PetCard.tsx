@@ -56,7 +56,7 @@ const PetCard: React.FC<IProps> = ({ details, type }) => {
             <CardHead>
                 <Image
                     cloudName={process.env.REACT_APP_CLOUDINARY_NAME}
-                    publicId={owner.profileImg}
+                    publicId={owner?.profileImg}
                     radius="max"
                     width="40"
                     height="40"
