@@ -36,6 +36,11 @@ export const ProfileCard = styled.div`
         font-size: 1.25rem;
         color: rgba(0, 0, 0, 0.5);
     }
+
+    &:hover :first-child {
+        opacity: 1;
+        pointer-events: all;
+    }
 `;
 
 export const ProfilePosts = styled.div`
@@ -57,6 +62,21 @@ export const PostList = styled.div`
 export const EditBtn = styled(Button)`
     position: absolute;
     top: 1rem;
+    left: 1rem;
+    margin: 0;
+`;
+
+export const DeleteBtn = styled(Button)`
+    position: absolute;
+    top: 1rem;
     right: 1rem;
     margin: 0;
+    background: #d50000;
+    border: 2px solid transparent;
+    opacity: 0;
+    pointer-events: none;
+    &:hover {
+        background: #ef5350;
+        color: black;
+    }
 `;

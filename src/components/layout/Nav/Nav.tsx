@@ -1,6 +1,7 @@
 //@ts-nocheck
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Image } from "cloudinary-react";
 
 import { Actions } from "types/ActionTypes";
 import {
@@ -14,7 +15,6 @@ import {
 } from "./styles";
 import { useAuth } from "contexts/AuthContext";
 import navLogo from "assets/img/findmeow-logo.png";
-import { Image } from "cloudinary-react";
 import useGetUser from "hooks/useGetUser";
 
 interface IProps {}
