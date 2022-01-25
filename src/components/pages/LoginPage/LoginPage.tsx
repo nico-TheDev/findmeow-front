@@ -26,7 +26,7 @@ import Loader from "components/Loader";
 
 interface IProps {}
 
-export const LandingPage: React.FC<IProps> = () => {
+export const LoginPage: React.FC<IProps> = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const {
@@ -174,4 +174,4 @@ export const LandingPage: React.FC<IProps> = () => {
     );
 };
 
-export default LandingPage;
+export default LoginPage;

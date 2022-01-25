@@ -6,7 +6,7 @@ import PrivateRoute from "routes/PrivateRoute";
 // LAYOUT
 import Nav from "components/layout/Nav";
 // PAGES
-import LandingPage from "components/pages/LandingPage";
+import LoginPage from "components/pages/LoginPage";
 import HomePage from "components/pages/HomePage";
 import FindPage from "components/pages/FindPage";
 import AdoptPage from "components/pages/AdoptPage";
@@ -28,8 +28,8 @@ function App() {
         <BrowserRouter>
             {token && <Nav />}
             <Routes>
-                <Route path="/" element={<LandingPage />} />
-                <Route path="/login" element={<LandingPage />} />
+                <Route path="/" element={<LoginPage />} />
+                <Route path="/login" element={<LoginPage />} />
                 <Route path="/signup" element={<SignupPage />} />
                 <Route path="/dashboard" element={<PrivateRoute />}>
                     <Route path="home" element={<HomePage />} />
