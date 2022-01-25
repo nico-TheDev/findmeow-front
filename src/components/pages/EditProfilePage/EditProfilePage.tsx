@@ -112,7 +112,6 @@ const EditProfilePage: React.FC<IProps> = () => {
                     resetForm();
                 };
                 reader.onerror = () => {
-                    console.log("ERROR IN UPLOADING PHOTO");
                     setPopupState({
                         isShowing: true,
                         message: "Error in uploading",

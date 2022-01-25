@@ -34,8 +34,6 @@ const ProfilePage: React.FC<IProps> = () => {
     };
 
     const handleDelete = async () => {
-        console.log(userID);
-        console.log(currentUser);
         try {
             await api.delete(`/user/${currentUser.id}`, {
                 data: {

@@ -108,7 +108,6 @@ export const SignupPage: React.FC<IProps> = () => {
                 });
             }
         } catch (err) {
-            console.log(err);
             setPopupState({
                 isShowing: true,
                 ...popupState,

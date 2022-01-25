@@ -58,7 +58,6 @@ const PetProfilePage: React.FC<IProps> = () => {
             userId: currentUserID,
         });
         setPostStatus(response.data.updatedPost);
-        console.log(response.data.updatedPost);
     };
 
     const getType = () => {
