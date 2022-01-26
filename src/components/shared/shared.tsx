@@ -15,6 +15,11 @@ export const Container = styled.div`
         margin: 0 auto;
         font-weight: 300;
         letter-spacing: 2px;
+
+        ${respondTo.sm`
+            text-align:center;
+
+    `}
     }
 `;
 
@@ -75,7 +80,7 @@ export const InputField = styled.div`
         }
 
         ${respondTo.cp`
-            width:80%;
+            margin:0 !important;
         `}
     }
 
