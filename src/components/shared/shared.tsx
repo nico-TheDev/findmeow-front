@@ -121,6 +121,10 @@ export const BackBtn = styled(CreateBtn)`
     top: 5%;
     left: 3%;
 
+    ${respondTo.sm`
+        padding:1em;
+    `}
+
     svg {
         width: 1.5rem;
         height: 1.5rem;

@@ -1,11 +1,17 @@
+// @ts-nocheck
 import styled from "styled-components";
 import { Button } from "components/shared/shared";
+import respondTo from "util/respondTo";
 
 export const ProfileMain = styled.div`
     width: 80%;
     margin: 0 auto;
     display: flex;
     gap: 2rem;
+
+    ${respondTo.md`
+        flex-direction:column;
+    `}
 `;
 
 export const ProfileCard = styled.div`
@@ -18,6 +24,11 @@ export const ProfileCard = styled.div`
     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.25);
     display: grid;
     align-content: center;
+
+    ${respondTo.md`
+        justify-content:center;
+        padding-top:5rem;
+    `}
 
     img {
         width: 250px;
@@ -46,6 +57,21 @@ export const ProfileCard = styled.div`
 export const ProfilePosts = styled.div`
     padding: 2rem;
     flex: 1;
+
+    ${respondTo.lg`
+        width:100%;    
+
+    `}
+
+    ${respondTo.md`
+        margin-top:3rem;
+        padding:0;
+        h2{
+            margin-bottom:2rem;
+        }
+
+        
+    `}
     h2 {
         font-size: 2rem;
         font-weight: 300;

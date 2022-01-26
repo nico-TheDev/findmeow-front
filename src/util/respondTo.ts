@@ -7,7 +7,7 @@ const breakpoints: {
     lg: string;
 } = {
     cp: "450px",
-    sm: "600px",
+    sm: "640px",
     md: "800px",
     lg: "1200px",
 };

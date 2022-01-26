@@ -1,5 +1,7 @@
+// @ts-nocheck
 import styled from "styled-components";
 import { Button } from "components/shared/shared";
+import respondTo from "util/respondTo";
 
 export const PetMain = styled.div`
     width: 80%;
@@ -21,6 +23,16 @@ export const PetMain = styled.div`
     min-height: 70vh;
     z-index: 2;
     position: relative;
+
+    ${respondTo.md`
+        width:90%;
+        grid-template-columns: 1fr;
+        grid-template-rows:repeat(3,max-content);
+        grid-template-areas:
+        "head" 
+        "left"
+        "right";
+    `}
 `;
 
 export const PetHead = styled.div`
@@ -32,6 +44,10 @@ export const PetHead = styled.div`
         text-align: center;
         font-size: 2.5rem;
         flex: 1;
+
+        ${respondTo.sm`
+            font-size:1.2rem;
+        `}
     }
 
     button {
@@ -52,6 +68,10 @@ export const PetLeft = styled.div`
         height: 340px;
         object-fit: cover;
         display: block;
+
+        ${respondTo.md`
+            height: 400px;        
+        `}
     }
 `;
 
@@ -75,6 +95,10 @@ export const PetRight = styled.div`
     align-content: space-between;
     /* padding: 2rem; */
     height: 100%;
+    ${respondTo.md`
+            text-align: center;        
+        `}
+
     h4 {
         font-size: 2rem;
     }
@@ -86,6 +110,9 @@ export const PetRight = styled.div`
     p {
         font-size: 1.2rem;
         margin-bottom: 2rem;
+        ${respondTo.md`
+            text-align:justify;
+        `}
     }
 `;
 
@@ -100,6 +127,12 @@ export const PetLocation = styled.div`
 export const PetBtn = styled(Button)`
     width: max-content;
     font-size: 1.2rem;
+
+    ${respondTo.md`
+            width: 100%;
+            font-size:1rem;
+            margin:0;        
+        `}
 `;
 
 export const PetDescription = styled.p`
@@ -112,4 +145,24 @@ export const PetBtnHolder = styled.div`
     gap: 1rem;
     align-items: center;
     justify-content: flex-end;
+    width: 100%;
+
+    ${respondTo.md`
+    justify-content: space-between;
+       button{
+           width:max-content;
+
+       }
+    `}
+
+    ${respondTo.sm`
+        flex-direction:column;    
+        button:first-child{
+            margin-bottom:2rem;
+        }
+
+        button{
+            width:100%;
+        }
+    `}
 `;

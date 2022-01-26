@@ -7,6 +7,14 @@
 
 /* 800px */
 @media only screen and (max-width: 800px) {
+    .fullWidth {
+        padding: 0;
+        margin: 0;
+    }
+
+    .my-masonry-grid_column > a:hover {
+        transform: scale(1);
+    }
 }
 
 /* 600px */
