@@ -73,6 +73,10 @@ export const InputField = styled.div`
         &:hover {
             border: 1px solid ${({ theme }) => theme.primary.main};
         }
+
+        ${respondTo.cp`
+            width:80%;
+        `}
     }
 
     textarea {

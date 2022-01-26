@@ -1,5 +1,7 @@
+// @ts-nocheck
 import styled from "styled-components";
 import { Button } from "components/shared/shared";
+import respondTo from "util/respondTo";
 
 export const MainContainer = styled.header`
     min-height: 100vh;
@@ -7,6 +9,11 @@ export const MainContainer = styled.header`
     background-color: ${({ theme }) => theme.primary.main};
     display: grid;
     place-items: center;
+
+    ${respondTo.cp`
+         min-height: 130vh;
+
+        `}
 `;
 
 export const Container = styled.div`
@@ -24,6 +31,11 @@ export const Container = styled.div`
     padding: 2rem;
     gap: 2rem;
     position: relative;
+
+    ${respondTo.cp`
+            width:90%;
+            padding:4rem 2rem;
+        `}
 `;
 
 export const HeroLeft = styled.div`
@@ -63,12 +75,37 @@ export const LoginForm = styled.form`
         "left right";
     align-content: start;
     align-items: start;
+
+    ${respondTo.md`
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(3,max-content);
+        grid-template-areas:
+            "title"
+            "left"
+            "right";
+        gap:0rem;
+    `}
+
+    ${respondTo.cp`
+        width:100%;
+
+        input{
+            width:100% !important;
+            margin:0 0 1rem 0;
+        }
+
+    `}
+
     h2 {
         color: ${({ theme }) => theme.primary.dark};
         font-weight: 400;
         text-align: center;
         font-size: 2.5rem;
         grid-area: title;
+
+        ${respondTo.md`
+            margin-bottom:2rem;
+        `}
     }
 `;
 
@@ -76,6 +113,11 @@ export const Btn = styled(Button)`
     width: 100%;
     font-size: 1.2rem;
     margin-top: 1rem;
+
+    ${respondTo.sm`
+       margin-top:2.5rem;
+
+    `}
 `;
 
 export const BottomForm = styled.div`
