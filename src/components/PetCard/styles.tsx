@@ -1,6 +1,7 @@
 //@ts-nocheck
 
 import styled, { keyframes } from "styled-components";
+import respondTo from "util/respondTo";
 
 const blink = keyframes`
     0%{background:rgba(0,0,0.0.5)}
@@ -14,6 +15,14 @@ export const CardHead = styled.div`
     gap: 1rem;
     padding: 0.5rem;
     align-items: center;
+
+    ${respondTo.lg`
+        justify-content:space-between;
+
+        img{
+            margin-right:1rem;
+        }
+    `}
 
     div {
         flex: 1;
@@ -59,4 +68,8 @@ export const CardLoader = styled.div`
     border-radius: 1rem;
     animation: ${blink} 1s linear infinite;
     margin: 1rem;
+    ${respondTo.sm`
+        width:100%;
+        height:300px;
+    `}
 `;

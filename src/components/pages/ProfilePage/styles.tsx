@@ -69,8 +69,6 @@ export const ProfilePosts = styled.div`
         h2{
             margin-bottom:2rem;
         }
-
-        
     `}
     h2 {
         font-size: 2rem;
