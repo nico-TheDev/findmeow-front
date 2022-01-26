@@ -124,9 +124,9 @@ export const MobileMenu = styled.ul`
     background: white;
     display: grid;
     font-size: 1.5rem;
-    transform: ${({ isOpen }) =>
-        isOpen ? "translateX(0)" : "translateX(10000%)"};
+    transform: ${({ isOpen }) => (isOpen ? "scaleX(1)" : "scaleX(0)")};
     transition: 500ms;
+    transform-origin: right; ;
 `;
 
 export const MobileItem = styled(NavItem)`
