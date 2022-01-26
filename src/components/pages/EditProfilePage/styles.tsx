@@ -1,5 +1,7 @@
+// @ts-nocheck
 import styled from "styled-components";
 import { Button } from "components/shared/shared";
+import respondTo from "util/respondTo";
 
 export const PetMain = styled.div`
     width: 80%;
@@ -15,6 +17,15 @@ export const PetMain = styled.div`
     gap: 1rem;
     min-height: 70vh;
     position: relative;
+
+    ${respondTo.sm`
+        grid-template-columns:1fr;
+    `}
+
+    ${respondTo.cp`
+       width:90%;
+       padding-top:70px;
+    `}
 `;
 export const PetImg = styled.img`
     width: 80%;
@@ -31,6 +42,13 @@ export const ProfileCard = styled.div`
         border-radius: 50%;
         width: 300px;
         height: 300px;
+
+        ${respondTo.cp`
+        height: 200px;
+        width: 200px;
+        margin-right:auto;
+        margin-left:auto;
+    `}
     }
 `;
 
@@ -41,6 +59,15 @@ export const PetForm = styled.form`
     margin-bottom: 2rem;
     justify-self: start;
     width: 100%;
+
+    ${respondTo.cp`
+        padding:0;
+
+        input{
+            margin:0;
+            width:100%;
+        }
+    `}
 `;
 
 export const PetButton = styled(Button)`
