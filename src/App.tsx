@@ -18,6 +18,7 @@ import SignupPage from "components/pages/SignupPage";
 import OtherProfilePage from "components/pages/OtherProfilePage";
 import EditPostPage from "components/pages/EditPostPage";
 import EditProfilePage from "components/pages/EditProfilePage";
+import LandingPage from "components/pages/LandingPage";
 
 // CONTEXT
 import { NavContextProvider } from "contexts/NavContext";
@@ -32,7 +33,7 @@ function App() {
             <NavContextProvider>
                 {token && <Nav />}
                 <Routes>
-                    <Route path="/" element={<LoginPage />} />
+                    <Route path="/" element={<LandingPage />} />
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/signup" element={<SignupPage />} />
                     <Route path="/dashboard" element={<PrivateRoute />}>
