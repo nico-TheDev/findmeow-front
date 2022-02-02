@@ -97,3 +97,16 @@ li {
 .fullWidth {
     width: 100%;
 }
+
+.swiper-button-prev,
+.swiper-button-next {
+    color: #ff80ab !important;
+}
+
+.swiper-pagination-bullet-active {
+    background: #ff80ab !important;
+}
+
+.swiper-container {
+    z-index: 3 !important;
+}

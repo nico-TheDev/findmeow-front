@@ -3,6 +3,8 @@ export enum Actions {
     SET_USER = "SET_USER",
     SET_TOKEN = "SET_TOKEN",
     LOGOUT_USER = "LOGOUT_USER",
+    SET_ADMIN = "SET_ADMIN",
+    LOGOUT_ADMIN = "LOGOUT_ADMIN",
 }
 
 export type CountProviderProps = { children: React.ReactNode };
@@ -27,6 +29,7 @@ export interface AuthState {
     token?: string | null | undefined;
     userID?: string | null | undefined;
     user?: null | UserType | undefined;
+    isAdmin?: boolean | null | undefined;
 }
 
 export enum ROUTES {

@@ -88,30 +88,39 @@ export const Logo = styled.img`
 `}
 `;
 
-export const WaveOneHolder = styled.div`
+export const Wave = styled.div`
     svg {
         position: absolute;
-        bottom: 0;
+        z-index: 1;
+        width: 100%;
+        height: 80%;
+    }
+`;
+
+export const WaveOneHolder = styled(Wave)`
+    svg {
+        position: absolute;
+        bottom: -20%;
         left: 0;
         width: 100%;
         z-index: 1;
     }
 `;
 
-export const WaveTwoHolder = styled.div`
+export const WaveTwoHolder = styled(Wave)`
     svg {
         position: absolute;
-        top: 0;
+        top: -20%;
         left: 0;
         width: 100%;
         z-index: 1;
         transform: rotate(180deg);
     }
 `;
-export const WaveThreeHolder = styled.div`
+export const WaveThreeHolder = styled(Wave)`
     svg {
         position: absolute;
-        bottom: 0;
+        bottom: -20%;
         left: 0;
         width: 100%;
         z-index: 1;
@@ -119,7 +128,7 @@ export const WaveThreeHolder = styled.div`
 `;
 
 export const FeatureSection = styled.section`
-    padding: 6rem 0;
+    padding: 8rem 0;
     padding-top: 10rem;
     position: relative;
 `;
@@ -133,6 +142,8 @@ export const SectionTitle = styled.h2`
 `;
 
 const Feature = styled.div`
+    position: relative;
+    z-index: 10;
     width: 80%;
     margin: 0 auto;
     display: flex;
@@ -140,6 +151,7 @@ const Feature = styled.div`
     justify-content: center;
     gap: 2rem;
     padding: 2rem;
+    cursor: drag;
 
     ${respondTo.md`
         
@@ -182,6 +194,8 @@ const Feature = styled.div`
 `;
 
 export const FeatureOne = styled(Feature)`
+    position: relative;
+    z-index: 10;
     img {
         width: 450px;
     }
@@ -196,3 +210,17 @@ img{
 `;
 export const FeatureTwo = styled(Feature)``;
 export const FeatureThree = styled(Feature)``;
+
+export const ContactSection = styled(FeatureSection)``;
+
+export const ContactSub = styled.h3`
+    text-align: center;
+    font-size: 2rem;
+    span {
+        padding-top: 1rem;
+        display: block;
+        font-size: 1.5rem;
+        color: ${({ theme }) => theme.primary.main};
+    }
+`;
+export const ContactEmail = styled.h4``;
