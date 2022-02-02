@@ -1,6 +1,6 @@
 // @ts-nocheck
 
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Image } from "cloudinary-react";
 
@@ -13,6 +13,7 @@ import {
     EditBtn,
     DeleteBtn,
 } from "./styles";
+import Popup from "components/Popup";
 import PetList from "components/PetList";
 import { useAuth } from "contexts/AuthContext";
 import usePostCollection from "hooks/usePostCollectiion";
@@ -28,6 +29,10 @@ const ProfilePage: React.FC<IProps> = () => {
     const { userID } = authState;
     const { user: currentUser, isLoading: isUserLoaded } = useGetUser(userID);
     const { collection, isLoading } = usePostCollection(`/post/user/${userID}`);
+    const [popupDetails, setPopupDetails] = useState({
+        isShowing: false,
+        message: "Are you sure ?",
+    });
 
     const handleEdit = () => {
         navigate("/dashboard/edit_profile", { state: { user: currentUser } });
@@ -53,9 +58,32 @@ const ProfilePage: React.FC<IProps> = () => {
 
     return (
         <PageWrapper title="Profile">
+            <Popup
+                isShowing={popupDetails.isShowing}
+                message={popupDetails.message}
+                hasButtons={true}
+                noStr="Yes"
+                noFunc={handleDelete}
+                yesStr="No"
+                yesFunc={() =>
+                    setPopupDetails({
+                        isShowing: false,
+                        message: "Are you sure ?",
+                    })
+                }
+            />
             <ProfileMain>
                 <ProfileCard>
-                    <DeleteBtn onClick={handleDelete}>Delete</DeleteBtn>
+                    <DeleteBtn
+                        onClick={() =>
+                            setPopupDetails({
+                                isShowing: true,
+                                message: "Are you sure ?",
+                            })
+                        }
+                    >
+                        Delete
+                    </DeleteBtn>
                     <EditBtn onClick={handleEdit}>Edit</EditBtn>
                     <Image
                         cloudName={process.env.REACT_APP_CLOUDINARY_NAME}

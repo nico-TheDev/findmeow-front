@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { Image, Placeholder } from "cloudinary-react";
 
 import api from "api";
@@ -29,6 +29,9 @@ interface IProps {
 const PetProfilePage: React.FC<IProps> = () => {
     const { id } = useParams();
     const navigate = useNavigate();
+    const location = useLocation();
+
+    const [currentLoc, setCurrentLoc] = useState(location.pathname);
 
     const { authState } = useAuth();
     const { userID: currentUserID } = authState;
@@ -53,6 +56,10 @@ const PetProfilePage: React.FC<IProps> = () => {
         }
     }, [details]);
 
+    useEffect(() => {
+        setCurrentLoc(location.pathname);
+    }, [location.pathname]);
+
     const handleCompleted = async () => {
         const response = await api.put(`/post/like/${id}`, {
             userId: currentUserID,
@@ -66,6 +73,15 @@ const PetProfilePage: React.FC<IProps> = () => {
         if (postType === "missing") return "find";
         else {
             return postType;
+        }
+    };
+
+    const getPostStatus = (location: string) => {
+        if (location.includes("adopt")) {
+            return "For Adoption";
+        }
+        if (location.includes("find")) {
+            return "Missing";
         }
     };
 
@@ -128,7 +144,9 @@ const PetProfilePage: React.FC<IProps> = () => {
                                     outlined={true}
                                 >
                                     Mark as{" "}
-                                    {postStatus ? "Missing" : "Completed"}
+                                    {postStatus
+                                        ? getPostStatus(currentLoc)
+                                        : "Completed"}
                                 </PetBtn>
                             </>
                         )}
