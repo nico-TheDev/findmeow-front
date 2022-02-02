@@ -9,6 +9,7 @@ import {
     MessageHead,
     NoBtn,
     YesBtn,
+    PopupMain,
 } from "./styles";
 
 interface IProps {
@@ -38,16 +39,18 @@ const Popup: React.FC<IProps> = ({
     };
 
     return (
-        <PopupCard isShowing={isShowing}>
-            <MessageHead>MESSAGE</MessageHead>
-            <MessageBody>{message}</MessageBody>
-            {hasButtons && (
-                <ButtonHolder>
-                    <YesBtn onClick={handleYes}>{yesStr}</YesBtn>
-                    <NoBtn onClick={handleNo}>{noStr}</NoBtn>
-                </ButtonHolder>
-            )}
-        </PopupCard>
+        <PopupMain isShowing={isShowing}>
+            <PopupCard>
+                <MessageHead>MESSAGE</MessageHead>
+                <MessageBody>{message}</MessageBody>
+                {hasButtons && (
+                    <ButtonHolder>
+                        <YesBtn onClick={handleYes}>{yesStr}</YesBtn>
+                        <NoBtn onClick={handleNo}>{noStr}</NoBtn>
+                    </ButtonHolder>
+                )}
+            </PopupCard>
+        </PopupMain>
     );
 };
 

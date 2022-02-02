@@ -2,11 +2,21 @@
 
 import styled from "styled-components";
 
+export const PopupMain = styled.div`
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    display: grid;
+    place-items: center;
+    position: fixed;
+    z-index: 999999999999999999;
+    top: 0;
+    left: 0;
+    opacity: ${({ isShowing }) => (isShowing ? "1" : "0")};
+    pointer-events: ${({ isShowing }) => (isShowing ? "all" : "none")};
+`;
+
 export const PopupCard = styled.div`
-    position: absolute;
-    top: 20%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     background: white;
     padding: 2rem;
     box-shadow: 0px 2px 30px 0px rgba(0, 0, 0, 0.5);
@@ -14,8 +24,6 @@ export const PopupCard = styled.div`
     min-width: 300px;
     text-align: center;
     z-index: 999;
-    opacity: ${({ isShowing }) => (isShowing ? "1" : "0")};
-    pointer-events: ${({ isShowing }) => (isShowing ? "all" : "none")};
 `;
 
 export const MessageHead = styled.h3`
@@ -34,7 +42,7 @@ export const ButtonHolder = styled.div`
     font-weight: bold;
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: space-around;
     gap: 1rem;
     text-transform: uppercase;
 `;

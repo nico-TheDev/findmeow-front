@@ -116,7 +116,7 @@ const EditPostPage: React.FC<IProps> = () => {
             } else {
                 setPopupState({
                     isShowing: true,
-                    message: "You need a profile picture",
+                    message: "You need a picture",
                     hasButtons: false,
                 });
             }
