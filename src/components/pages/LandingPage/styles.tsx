@@ -89,6 +89,12 @@ export const Logo = styled.img`
 `;
 
 export const Wave = styled.div`
+    ${respondTo.md`
+        
+        display:none;
+        
+    `}
+
     svg {
         position: absolute;
         z-index: 1;
@@ -131,6 +137,12 @@ export const FeatureSection = styled.section`
     padding: 8rem 0;
     padding-top: 10rem;
     position: relative;
+
+    ${respondTo.md`
+        
+    padding: 3rem 0;
+        
+    `}
 `;
 
 export const FeatureContainer = styled(Container)``;
