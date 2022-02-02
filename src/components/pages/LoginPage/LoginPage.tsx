@@ -23,6 +23,7 @@ import api from "api";
 import logoImg from "assets/img/findmeow-logo-2.png";
 import heroImg from "assets/img/landing-img-1.png";
 import Loader from "components/Loader";
+import Icon from "components/shared/Icon";
 
 interface IProps {}
 
@@ -39,6 +40,7 @@ export const LoginPage: React.FC<IProps> = () => {
     });
 
     const [showLoader, setShowLoader] = useState(false);
+    const [isShowingPassword, setIsShowingPassword] = useState(false);
 
     const LoginSchema = yup.object({
         email: yup.string().required("Email is required").email(),
@@ -141,13 +143,26 @@ export const LoginPage: React.FC<IProps> = () => {
                         </InputField>
                         <InputField>
                             <input
-                                type="password"
+                                type={isShowingPassword ? "text" : "password"}
                                 placeholder="Password"
                                 id="password"
                                 name="password"
                                 onChange={formik.handleChange}
                                 value={formik.values.password}
                             />
+                            <button
+                                onClick={() =>
+                                    setIsShowingPassword(!isShowingPassword)
+                                }
+                            >
+                                <Icon
+                                    name={
+                                        isShowingPassword
+                                            ? "open-eye"
+                                            : "close-eye"
+                                    }
+                                />
+                            </button>
                             <ErrorMessages hasError={formik.errors.password}>
                                 {formik.errors.password
                                     ? formik.errors.password

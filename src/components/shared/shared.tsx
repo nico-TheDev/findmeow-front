@@ -62,19 +62,22 @@ export const PageBG = styled.img`
 `;
 
 export const InputField = styled.div`
+    position: relative;
     input,
     textarea {
-        display: block;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         border: 1px solid gray;
         font-size: 1rem;
-        padding: 1em 0.75em;
+        padding: 0.75em 0.75em;
         width: 100%;
         border-radius: 8px;
         color: black;
         outline: none;
         border: 1px solid rgba(0, 0, 0, 0.4);
         font-family: inherit;
-
+        height: 100%;
         &:hover {
             border: 1px solid ${({ theme }) => theme.primary.main};
         }
@@ -94,6 +97,24 @@ export const InputField = styled.div`
         font-weight: 300;
         color: gray;
         margin: 0 0.5rem;
+    }
+
+    button {
+        position: absolute;
+        top: 50%;
+        right: 15px;
+        transform: translateY(-50%);
+        margin: 0;
+        padding: 0;
+        width: 2rem;
+        height: 2rem;
+
+        svg {
+            width: 2rem;
+            height: 2rem;
+            color: gray;
+            fill: currentColor;
+        }
     }
 `;
 

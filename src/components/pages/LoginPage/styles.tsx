@@ -65,7 +65,7 @@ export const LoginForm = styled.form`
     width: 60%;
     margin: 0 auto;
     display: grid;
-    gap: 0.5rem;
+    gap: 1.5rem;
     ${respondTo.sm`
         width:90%;
         gap:1.2rem;
