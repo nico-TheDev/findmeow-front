@@ -99,7 +99,7 @@ export const InputField = styled.div`
         margin: 0 0.5rem;
     }
 
-    button {
+    div {
         position: absolute;
         top: 50%;
         right: 15px;

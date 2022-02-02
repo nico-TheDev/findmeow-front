@@ -150,7 +150,7 @@ export const LoginPage: React.FC<IProps> = () => {
                                 onChange={formik.handleChange}
                                 value={formik.values.password}
                             />
-                            <button
+                            <div
                                 onClick={() =>
                                     setIsShowingPassword(!isShowingPassword)
                                 }
@@ -162,7 +162,7 @@ export const LoginPage: React.FC<IProps> = () => {
                                             : "close-eye"
                                     }
                                 />
-                            </button>
+                            </div>
                             <ErrorMessages hasError={formik.errors.password}>
                                 {formik.errors.password
                                     ? formik.errors.password
