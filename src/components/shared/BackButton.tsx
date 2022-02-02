@@ -12,7 +12,7 @@ const BackButton: React.FC<IProps> = ({ path, type }) => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate(path);
+        navigate(-1);
     };
     return (
         <BackBtn onClick={handleClick}>

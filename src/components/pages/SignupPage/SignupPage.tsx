@@ -163,7 +163,7 @@ export const SignupPage: React.FC<IProps> = () => {
     });
 
     const handleBack = () => {
-        navigate("/");
+        navigate(-1);
     };
 
     return (
