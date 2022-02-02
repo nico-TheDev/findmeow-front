@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { SwiperSlide } from "swiper/react";
 
@@ -29,15 +29,23 @@ import landingImg from "assets/img/landing-img-2.png";
 import featureOne from "assets/img/feature-1.png";
 import featureTwo from "assets/img/feature-2.png";
 import featureThree from "assets/img/feature-3.png";
+import { useAuth } from "contexts/AuthContext";
 
 interface IProps {}
 
 const LandingPage: React.FC<IProps> = () => {
+    const { authState } = useAuth();
     const navigate = useNavigate();
 
     const handleClick = () => {
         navigate("/signup");
     };
+
+    useEffect(() => {
+        if (authState.token) {
+            navigate("/dashboard/home");
+        }
+    }, []);
 
     return (
         <MainContainer>

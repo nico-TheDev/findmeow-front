@@ -80,7 +80,6 @@ const EditPostPage: React.FC<IProps> = () => {
                             breed: values.breed,
                             description: values.petDescription,
                             location: values.location,
-                            type: getPostType(),
                             image: targetID ? targetID : post.image,
                             userId: userID,
                         },
@@ -98,6 +97,7 @@ const EditPostPage: React.FC<IProps> = () => {
                             isShowing: false,
                             ...popupState,
                         });
+                        navigate("/dashboard/profile");
                     }, 2000);
 
                     setFileInputState("");
