@@ -92,7 +92,9 @@ const PetProfilePage: React.FC<IProps> = () => {
             <PetMain>
                 <PetHead>
                     <BackButton
-                        path={`/dashboard/${details.post ? getType() : "home"}`}
+                        path={`/dashboard/${
+                            details?.post ? getType() : "home"
+                        }`}
                     />
                     <h2>{details?.post.type}</h2>
                 </PetHead>

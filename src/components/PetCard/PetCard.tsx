@@ -10,6 +10,7 @@ import formatDate from "util/formatDate";
 import api from "api";
 import truncateString from "util/formatDesc";
 import usePostOwner from "hooks/usePostOwner";
+import defaultAvatar from "assets/img/avatar-icon.png";
 
 interface IProps {
     details: PetDetails;
@@ -49,7 +50,7 @@ const PetCard: React.FC<IProps> = ({ details, type }) => {
 
     return (
         <Link
-            to={`/dashboard/${getType(type)}/${details._id}`}
+            to={`/dashboard/${getType(type)}/${details.id}`}
             style={{ textDecoration: "none", display: "block" }}
         >
             {displayHead()}

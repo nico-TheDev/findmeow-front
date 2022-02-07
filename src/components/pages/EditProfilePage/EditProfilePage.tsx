@@ -161,7 +161,7 @@ const EditProfilePage: React.FC<IProps> = () => {
     return (
         <>
             {isLoading && <Loader />}
-            <PageWrapper title={`Edit Post`}>
+            <PageWrapper title={`Edit Profile`}>
                 <Popup
                     hasButtons={popupState.hasButtons}
                     message={popupState.message}

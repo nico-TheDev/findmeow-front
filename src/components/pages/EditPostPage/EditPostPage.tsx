@@ -74,7 +74,7 @@ const EditPostPage: React.FC<IProps> = () => {
                 reader.readAsDataURL(postImg);
                 reader.onloadend = async () => {
                     const targetID = await uploadImage(reader.result);
-                    const response = await api.put(`/post/${post._id}`, {
+                    const response = await api.put(`/post/${post.id}`, {
                         editedPost: {
                             name: values.petname,
                             breed: values.breed,
