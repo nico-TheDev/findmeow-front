@@ -66,7 +66,7 @@ export const PetLeft = styled.div`
     img {
         width: 100%;
         height: 340px;
-        object-fit: cover;
+        object-fit: contain;
         display: block;
 
         ${respondTo.md`
