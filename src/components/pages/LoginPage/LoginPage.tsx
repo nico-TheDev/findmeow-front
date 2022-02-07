@@ -18,6 +18,7 @@ import {
     HeroImg,
     LoginForm,
     BottomForm,
+    BackBtn,
 } from "./styles";
 import api from "api";
 import logoImg from "assets/img/findmeow-logo-2.png";
@@ -114,10 +115,15 @@ export const LoginPage: React.FC<IProps> = () => {
         if (token) navigate("/dashboard/home");
     }, [location.pathname]);
 
+    const handleBack = () => navigate(-1);
+
     return (
         <MainContainer>
             {showLoader && <Loader />}
             <Container>
+                <BackBtn onClick={handleBack}>
+                    <Icon name="close" />
+                </BackBtn>
                 <Popup
                     message={popupState.message}
                     isShowing={popupState.isShowing}

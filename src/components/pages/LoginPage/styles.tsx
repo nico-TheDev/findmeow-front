@@ -12,6 +12,7 @@ export const MainContainer = styled.header`
 `;
 
 export const Container = styled.div`
+    position: relative;
     width: 90%;
     min-height: 90vh;
     background-color: white;
@@ -102,5 +103,28 @@ export const BottomForm = styled.div`
 
     a {
         color: blue;
+    }
+`;
+
+export const BackBtn = styled.button`
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: ${({ theme }) => theme.primary.dark};
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+
+    &:hover {
+        background: ${({ theme }) => theme.primary.main};
+    }
+
+    svg {
+        fill: white;
+        width: 2rem;
+        height: 2rem;
     }
 `;
