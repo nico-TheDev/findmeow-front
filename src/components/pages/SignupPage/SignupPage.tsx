@@ -130,6 +130,9 @@ export const SignupPage: React.FC<IProps> = () => {
         setProfileImg(targetFile);
     };
 
+    const phoneRegex =
+        /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+
     const SignupSchema = yup.object({
         email: yup
             .string()
@@ -145,7 +148,11 @@ export const SignupPage: React.FC<IProps> = () => {
             .required("Username is required")
             .max(20, "Maximum of 20 characters"),
         location: yup.string().required("Location is required"),
-        contact: yup.string().required("Contact is required"),
+        contact: yup
+            .string()
+            .matches(phoneRegex, "Invalid Phone Number")
+            .required("Contact is required")
+            .max(11, "Invalid Phone Number Length"),
     });
 
     const formik = useFormik({
