@@ -36,6 +36,7 @@ const OtherProfilePage: React.FC<IProps> = () => {
                         height="250"
                     />
                     <h3>{user?.name}</h3>
+                    <h4>{user?.username}</h4>
                     <h4>{user?.location}</h4>
                     <h4>{user?.email}</h4>
                     <h4>{user?.contact}</h4>

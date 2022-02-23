@@ -93,6 +93,7 @@ const ProfilePage: React.FC<IProps> = () => {
                         height="250"
                     />
                     <h3>{currentUser?.name}</h3>
+                    <h4>{currentUser?.username}</h4>
                     <h4>{currentUser?.location}</h4>
                     <h4>{currentUser?.email}</h4>
                     <h4>{currentUser?.contact}</h4>
